@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JARVIS | Kindle</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  background: white;
+  color: black;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 18px;
+}
+
+header {
+  border-bottom: 3px solid black;
+  padding-bottom: 14px;
+}
+
+.topline {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+h1 { font-size: 28px; margin-bottom: 5px; }
+h2 { font-size: 19px; }
+
+.panel {
+  border: 2px solid black;
+  padding: 14px;
+  margin-top: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+button {
+  background: white;
+  color: black;
+  border: 2px solid black;
+  padding: 16px 8px;
+  min-height: 75px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button:active {
+  background: black;
+  color: white;
+}
+
+.symbol {
+  display: block;
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.muted { font-size: 14px; }
+
+#message {
+  font-weight: bold;
+  min-height: 24px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="topline">
+    <span>J.A.R.V.I.S.</span>
+    <span>KINDLE EDITION</span>
+  </div>
+
+  <h1>Good evening.</h1>
+  <p class="muted">Your personal assistant dashboard.</p>
+</header>
+
+<section class="panel">
+  <h2>System Overview</h2>
+  <p>Dashboard loaded successfully.</p>
+  <p class="muted">E-Ink interface prototype 0.1</p>
+</section>
+
+<section class="panel">
+  <h2>Quick Access</h2>
+
+  <div class="grid">
+
+    <button onclick="show('AI Assistant coming soon.')">
+      <span class="symbol">◉</span>
+      AI Assistant
+    </button>
+
+    <button onclick="show('GCSE Revision coming soon.')">
+      <span class="symbol">▤</span>
+      GCSE Revision
+    </button>
+
+    <button onclick="show('School Timetable coming soon.')">
+      <span class="symbol">▦</span>
+      Timetable
+    </button>
+
+    <button onclick="show('Notes and PDFs coming soon.')">
+      <span class="symbol">▧</span>
+      Notes & PDFs
+    </button>
+
+    <button onclick="show('Games coming soon.')">
+      <span class="symbol">◇</span>
+      Games
+    </button>
+
+    <button onclick="show('Calendar coming soon.')">
+      <span class="symbol">◷</span>
+      Calendar
+    </button>
+
+  </div>
+
+  <hr>
+
+  <p id="message">Select a section to preview it.</p>
+</section>
+
+<section class="panel">
+  <h2>Reading</h2>
+  <p class="muted">
+    Your normal Kindle reading experience remains untouched.
+  </p>
+</section>
+
+<footer class="muted">
+  <hr>
+  JARVIS KINDLE PROJECT · BUILD 0.1
+</footer>
+
+<script>
+function show(message) {
+  document.getElementById("message").textContent = message;
+}
+</script>
+
+</body>
+</html>
