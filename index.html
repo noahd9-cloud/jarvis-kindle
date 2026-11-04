@@ -14,45 +14,47 @@ body {
   color: black;
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 18px;
+  padding: 16px;
 }
 
 header {
   border-bottom: 3px solid black;
-  padding-bottom: 14px;
+  padding-bottom: 12px;
 }
 
 .topline {
   display: flex;
   justify-content: space-between;
+  gap: 8px;
   font-size: 12px;
   font-weight: bold;
-  letter-spacing: 1px;
 }
 
-h1 { font-size: 28px; margin-bottom: 5px; }
-h2 { font-size: 19px; }
+h1 { font-size: 27px; margin: 15px 0 5px; }
+h2 { font-size: 20px; }
+p { line-height: 1.4; }
 
 .panel {
   border: 2px solid black;
-  padding: 14px;
-  margin-top: 16px;
+  padding: 13px;
+  margin-top: 15px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 9px;
 }
 
 button {
   background: white;
   color: black;
   border: 2px solid black;
-  padding: 16px 8px;
-  min-height: 75px;
-  font-size: 16px;
+  padding: 15px 7px;
+  min-height: 70px;
+  font-size: 15px;
   font-weight: bold;
+  width: 100%;
 }
 
 button:active {
@@ -62,15 +64,30 @@ button:active {
 
 .symbol {
   display: block;
-  font-size: 23px;
+  font-size: 22px;
   margin-bottom: 5px;
 }
 
-.muted { font-size: 14px; }
+.muted { font-size: 13px; }
 
-#message {
+.page { display: none; }
+.page.active { display: block; }
+
+.back {
+  min-height: 48px;
+  margin-top: 15px;
+}
+
+.clock {
+  font-size: 25px;
   font-weight: bold;
-  min-height: 24px;
+}
+
+footer {
+  border-top: 2px solid black;
+  margin-top: 20px;
+  padding-top: 10px;
+  font-size: 12px;
 }
 </style>
 </head>
@@ -82,75 +99,181 @@ button:active {
     <span>J.A.R.V.I.S.</span>
     <span>KINDLE EDITION</span>
   </div>
-
-  <h1>Good evening.</h1>
-  <p class="muted">Your personal assistant dashboard.</p>
+  <h1 id="greeting">Good day.</h1>
+  <div class="clock" id="clock">--:--</div>
+  <p class="muted" id="date">Loading date...</p>
 </header>
 
-<section class="panel">
-  <h2>System Overview</h2>
-  <p>Dashboard loaded successfully.</p>
-  <p class="muted">E-Ink interface prototype 0.1</p>
-</section>
+<!-- HOME -->
+<section id="home" class="page active">
 
-<section class="panel">
-  <h2>Quick Access</h2>
-
-  <div class="grid">
-
-    <button onclick="show('AI Assistant coming soon.')">
-      <span class="symbol">◉</span>
-      AI Assistant
-    </button>
-
-    <button onclick="show('GCSE Revision coming soon.')">
-      <span class="symbol">▤</span>
-      GCSE Revision
-    </button>
-
-    <button onclick="show('School Timetable coming soon.')">
-      <span class="symbol">▦</span>
-      Timetable
-    </button>
-
-    <button onclick="show('Notes and PDFs coming soon.')">
-      <span class="symbol">▧</span>
-      Notes & PDFs
-    </button>
-
-    <button onclick="show('Games coming soon.')">
-      <span class="symbol">◇</span>
-      Games
-    </button>
-
-    <button onclick="show('Calendar coming soon.')">
-      <span class="symbol">◷</span>
-      Calendar
-    </button>
-
+  <div class="panel">
+    <h2>System Overview</h2>
+    <p>JARVIS dashboard operational.</p>
+    <p class="muted">Build 0.2 | E-Ink mode</p>
   </div>
 
-  <hr>
+  <div class="panel">
+    <h2>Quick Access</h2>
 
-  <p id="message">Select a section to preview it.</p>
+    <div class="grid">
+      <button onclick="openPage('assistant')">
+        <span class="symbol">◉</span>AI Assistant
+      </button>
+
+      <button onclick="openPage('school')">
+        <span class="symbol">▦</span>Timetable
+      </button>
+
+      <button onclick="openPage('revision')">
+        <span class="symbol">▤</span>GCSE Revision
+      </button>
+
+      <button onclick="openPage('library')">
+        <span class="symbol">▧</span>Notes & PDFs
+      </button>
+
+      <button onclick="openPage('games')">
+        <span class="symbol">◇</span>Games
+      </button>
+
+      <button onclick="openPage('calendar')">
+        <span class="symbol">◷</span>Calendar
+      </button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>Reading</h2>
+    <p class="muted">
+      Your normal Kindle library remains available
+      through the Kindle's regular home screen.
+    </p>
+  </div>
+
 </section>
 
-<section class="panel">
-  <h2>Reading</h2>
-  <p class="muted">
-    Your normal Kindle reading experience remains untouched.
-  </p>
+<!-- AI ASSISTANT -->
+<section id="assistant" class="page">
+  <div class="panel">
+    <h2>AI Assistant</h2>
+    <p>JARVIS AI connection is not configured yet.</p>
+    <p class="muted">
+      This will eventually connect to Gemini through
+      a secure online backend.
+    </p>
+  </div>
+  <button class="back" onclick="openPage('home')">← Dashboard</button>
 </section>
 
-<footer class="muted">
-  <hr>
-  JARVIS KINDLE PROJECT · BUILD 0.1
+<!-- SCHOOL -->
+<section id="school" class="page">
+  <div class="panel">
+    <h2>School Timetable</h2>
+    <p>Your timetable will appear here.</p>
+    <p class="muted">Online timetable integration coming later.</p>
+  </div>
+  <button class="back" onclick="openPage('home')">← Dashboard</button>
+</section>
+
+<!-- REVISION -->
+<section id="revision" class="page">
+  <div class="panel">
+    <h2>GCSE Revision</h2>
+    <p>Revision centre</p>
+    <ul>
+      <li>Physics</li>
+      <li>Digital Technology</li>
+      <li>History</li>
+      <li>English Literature</li>
+    </ul>
+    <p class="muted">Flashcards and quizzes coming later.</p>
+  </div>
+  <button class="back" onclick="openPage('home')">← Dashboard</button>
+</section>
+
+<!-- LIBRARY -->
+<section id="library" class="page">
+  <div class="panel">
+    <h2>Notes & PDFs</h2>
+    <p>Your document library will appear here.</p>
+    <p class="muted">Cloud document storage coming later.</p>
+  </div>
+  <button class="back" onclick="openPage('home')">← Dashboard</button>
+</section>
+
+<!-- GAMES -->
+<section id="games" class="page">
+  <div class="panel">
+    <h2>Games & Puzzles</h2>
+    <ul>
+      <li>Sudoku</li>
+      <li>Chess</li>
+      <li>2048</li>
+      <li>Word puzzles</li>
+      <li>Minesweeper</li>
+    </ul>
+    <p class="muted">Playable games coming later.</p>
+  </div>
+  <button class="back" onclick="openPage('home')">← Dashboard</button>
+</section>
+
+<!-- CALENDAR -->
+<section id="calendar" class="page">
+  <div class="panel">
+    <h2>Calendar & Reminders</h2>
+    <p>Your calendar will appear here.</p>
+    <p class="muted">Reminder syncing coming later.</p>
+  </div>
+  <button class="back" onclick="openPage('home')">← Dashboard</button>
+</section>
+
+<footer>
+  J.A.R.V.I.S. KINDLE PROJECT · BUILD 0.2
 </footer>
 
 <script>
-function show(message) {
-  document.getElementById("message").textContent = message;
+function openPage(page) {
+  document.querySelectorAll('.page').forEach(function(section) {
+    section.classList.remove('active');
+  });
+
+  document.getElementById(page).classList.add('active');
+
+  window.scrollTo(0, 0);
 }
+
+function updateClock() {
+  var now = new Date();
+
+  document.getElementById('clock').textContent =
+    now.toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+  document.getElementById('date').textContent =
+    now.toLocaleDateString([], {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+
+  var hour = now.getHours();
+  var greeting = 'Good evening.';
+
+  if (hour < 12) greeting = 'Good morning.';
+  else if (hour < 18) greeting = 'Good afternoon.';
+
+  document.getElementById('greeting').textContent = greeting;
+}
+
+updateClock();
+
+document.addEventListener('visibilitychange', function() {
+  if (!document.hidden) updateClock();
+});
 </script>
 
 </body>
