@@ -424,11 +424,14 @@ function writeStore(key, value) {
 // ===============================
 
 function openPage(page) {
-  document.querySelectorAll('.page').forEach(function(section) {
-    section.classList.remove('active');
-  });
+  var sections = document.getElementsByClassName('page');
 
-  document.getElementById(page).classList.add('active');
+  for (var i = 0; i < sections.length; i++) {
+    sections[i].className = 'page';
+  }
+
+  document.getElementById(page).className = 'page active';
+
   window.scrollTo(0, 0);
 
   if (page === 'school') renderLessons();
@@ -436,7 +439,7 @@ function openPage(page) {
   if (page === 'library') renderNotes();
   if (page === 'calendar') renderReminders();
 }
-
+  
 // ===============================
 // CLOCK
 // ===============================
