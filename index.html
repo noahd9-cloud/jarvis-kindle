@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,6 @@
 <title>J.A.R.V.I.S. | Kindle</title>
 <style>
 * { box-sizing: border-box; }
-
 body {
   background: white;
   color: black;
@@ -15,12 +15,10 @@ body {
   padding: 14px;
   max-width: 760px;
 }
-
 header {
   border-bottom: 3px solid black;
   padding-bottom: 12px;
 }
-
 .topline {
   display: flex;
   justify-content: space-between;
@@ -28,37 +26,31 @@ header {
   font-size: 12px;
   font-weight: bold;
 }
-
 h1 { font-size: 27px; margin: 14px 0 5px; }
 h2 { font-size: 19px; margin: 0 0 10px; }
 h3 { font-size: 16px; margin: 12px 0 6px; }
 p { line-height: 1.4; }
-
 .panel {
   border: 2px solid black;
   padding: 13px;
   margin-top: 14px;
 }
-
 .panelhead {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
-
 .kicker {
   font-size: 11px;
   font-weight: bold;
   letter-spacing: 1px;
 }
-
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 9px;
 }
-
 button {
   background: white;
   color: black;
@@ -69,548 +61,251 @@ button {
   font-weight: bold;
   width: 100%;
 }
-
-button:active {
-  background: black;
-  color: white;
-}
-
+button:active { background: black; color: white; }
 .symbol {
   display: block;
   font-size: 22px;
   margin-bottom: 4px;
 }
-
 .muted { font-size: 13px; }
-
 .page { display: none; }
 .page.active { display: block; }
-
 .back { margin-top: 14px; }
-
-.clock {
-  font-size: 25px;
-  font-weight: bold;
-}
-
+.clock { font-size: 25px; font-weight: bold; }
 footer {
   border-top: 2px solid black;
   margin-top: 20px;
   padding-top: 10px;
   font-size: 12px;
 }
-
-input, textarea, select {
-  display: block;
-  width: 100%;
-  border: 2px solid black;
-  border-radius: 0;
-  background: white;
-  color: black;
-  padding: 11px;
-  font: 16px Arial;
-  margin: 7px 0 12px;
-}
-
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-label {
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.smallbtn {
-  min-height: 40px;
-  padding: 9px;
-  font-size: 13px;
-  margin: 4px 0;
-}
-
-.row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.row > * { flex: 1; min-width: 0; }
-
-.item {
-  border: 1px solid black;
-  padding: 9px;
-  margin: 8px 0;
-}
-
-.item p { margin: 4px 0; }
-
-hr {
-  border: 0;
-  border-top: 1px solid black;
-  margin: 12px 0;
-}
-
-.cardface {
-  border: 2px solid black;
-  padding: 18px;
-  min-height: 105px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 19px;
-  font-weight: bold;
-  margin: 12px 0;
-}
-
-.notice {
-  border: 1px dashed black;
-  padding: 9px;
-  font-size: 13px;
-}
-
-.statusline {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 6px 0;
-  border-bottom: 1px solid #aaa;
-  font-size: 13px;
-}
-
-.stat {
-  font-size: 23px;
-  font-weight: bold;
-}
-
-.tile {
-  border: 1px solid black;
-  padding: 10px;
-  min-height: 78px;
-}
-
-.tiletitle {
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-.tilevalue {
-  font-size: 17px;
-  font-weight: bold;
-  margin-top: 7px;
-}
-
-.taskrow {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  border-bottom: 1px solid #aaa;
-  padding: 9px 0;
-}
-
-.taskrow input {
-  width: 22px;
-  min-width: 22px;
-  height: 22px;
-  margin: 1px 0 0;
-}
-
-.tasktext {
-  flex: 1;
-  font-size: 14px;
-}
-
-.taskdone { text-decoration: line-through; }
-
-.pill {
-  display: inline-block;
-  border: 1px solid black;
-  padding: 3px 7px;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-#gameBoard {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 5px;
-  width: 100%;
-  max-width: 300px;
-  margin: 10px auto;
-}
-
-.gamecell {
-  border: 2px solid black;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 17px;
-  overflow: hidden;
-}
-
-.weatherbig {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-@media (max-width: 380px) {
-  body { padding: 10px; }
-  h1 { font-size: 24px; }
-  .grid { gap: 6px; }
-  .panel { padding: 10px; }
-  #gameBoard { max-width: 270px; gap: 4px; }
-  .gamecell { height: 42px; font-size: 16px; }
-}
 </style>
 </head>
-
 <body>
 
 <header>
   <div class="topline">
-    <span>J.A.R.V.I.S.</span>
-    <span>KINDLE EDITION · BUILD 0.4</span>
+    <span>J.A.R.V.I.S. SYSTEM</span>
+    <span>BUILD 0.5</span>
   </div>
-
-  <h1 id="greeting">Good day.</h1>
-  <div class="clock" id="clock">--:--</div>
-  <p class="muted" id="date">Loading date...</p>
-  <div class="kicker">PERSONAL INFORMATION SYSTEM</div>
+  <h1>Good to see you.</h1>
+  <p id="dateDisplay" class="muted">Loading date...</p>
+  <div id="clock" class="clock">--:--</div>
+  <p id="greeting">Your personal dashboard.</p>
 </header>
 
-<!-- HOME DASHBOARD -->
-<section id="home" class="page active">
+<nav class="grid" style="margin-top:14px">
+  <button onclick="openPage('home')">⌂ HOME</button>
+  <button onclick="openPage('assistant')">✦ ASSISTANT</button>
+  <button onclick="openPage('school')">▤ SCHOOL</button>
+  <button onclick="openPage('revision')">▣ REVISION</button>
+  <button onclick="openPage('notes')">✎ NOTES</button>
+  <button onclick="openPage('games')">◇ GAMES</button>
+  <button onclick="openPage('reminders')">◷ REMINDERS</button>
+</nav>
 
+<main>
+<section id="home" class="page active">
   <div class="panel">
     <div class="panelhead">
       <h2>System Overview</h2>
-      <span class="pill">BUILD 0.4</span>
+      <span class="kicker">BUILD 0.5</span>
     </div>
-
-    <p><b>J.A.R.V.I.S. dashboard operational.</b></p>
-
+    <p>Welcome to your personal J.A.R.V.I.S. dashboard.</p>
     <div class="grid">
-      <div class="tile">
-        <div class="tiletitle">AI LINK</div>
-        <div class="tilevalue" id="aiStatus">STANDBY</div>
+      <div>
+        <span class="kicker">SYSTEM</span>
+        <h3>ONLINE</h3>
       </div>
-
-      <div class="tile">
-        <div class="tiletitle">LOCAL STORAGE</div>
-        <div class="tilevalue" id="storageStatus">AVAILABLE</div>
+      <div>
+        <span class="kicker">AI CONNECTION</span>
+        <h3>STANDBY</h3>
       </div>
-
-      <div class="tile">
-        <div class="tiletitle">REVISION CARDS</div>
-        <div class="tilevalue" id="homeCardCount">0</div>
+      <div>
+        <span class="kicker">TASKS</span>
+        <h3 id="taskCount">0</h3>
       </div>
-
-      <div class="tile">
-        <div class="tiletitle">OPEN TASKS</div>
-        <div class="tilevalue" id="homeTaskCount">0</div>
+      <div>
+        <span class="kicker">REMINDERS</span>
+        <h3 id="reminderCount">0</h3>
       </div>
     </div>
   </div>
 
+<div class="panel">
+  <h2>Recent Activity</h2>
+  <div id="activityLog">No recent activity.</div>
+  <button onclick="clearActivityLog()" style="margin-top:10px">
+    CLEAR ACTIVITY
+  </button>
+</div>
+
   <div class="panel">
-    <div class="panelhead">
-      <h2>Today's Schedule</h2>
-      <button class="smallbtn" style="width:auto"
-        onclick="openPage('school')">Manage</button>
-    </div>
-    <div id="homeLessons">
-      <p class="muted">No lessons scheduled for today.</p>
-    </div>
+    <h2>Today's Schedule</h2>
+    <div id="homeLessons">No lessons added yet.</div>
+    <button onclick="openPage('school')">OPEN TIMETABLE</button>
   </div>
 
   <div class="panel">
-    <div class="panelhead">
-      <h2>Daily Tasks</h2>
-      <span class="pill">LOCAL</span>
-    </div>
-
-    <p class="muted">Your tasks and automatic suggestions.</p>
-
-    <label for="taskInput">Add a task</label>
-    <div class="row">
-      <input id="taskInput" placeholder="e.g. Revise Physics">
-      <button class="smallbtn" style="max-width:95px"
-        onclick="addTask()">＋ Add</button>
-    </div>
-
+    <h2>Daily Tasks</h2>
+    <div id="homeTasks"></div>
     <div id="taskList"></div>
+    <input id="taskInput" type="text" placeholder="Add a task..."
+      style="width:100%;padding:12px;margin:8px 0;font-size:16px">
+    <button onclick="addTask()">ADD TASK</button>
   </div>
 
   <div class="panel">
-    <div class="panelhead">
-      <h2>Weather</h2>
-      <span class="pill" id="weatherState">OFFLINE</span>
-    </div>
-
-    <div id="weatherDisplay">
-      <p class="muted">Weather has not been loaded.</p>
-    </div>
-
-    <button class="smallbtn" onclick="requestWeather()">
-      Use device location for weather
-    </button>
-
-    <label for="weatherCity">Or enter a town/city</label>
-    <div class="row">
-      <input id="weatherCity" placeholder="e.g. Enniskillen">
-      <button class="smallbtn" style="max-width:95px"
-        onclick="manualWeather()">Search</button>
-    </div>
-
-    <p class="muted">
-      Location is only used if you choose to request it.
-      Weather needs internet.
-    </p>
+    <h2>Weather</h2>
+    <div id="weatherDisplay">Weather information not loaded.</div>
+    <button onclick="getWeather()">REFRESH WEATHER</button>
   </div>
 
   <div class="panel">
-    <div class="panelhead">
-      <h2>Quick Notes</h2>
-      <button class="smallbtn" style="width:auto"
-        onclick="openPage('library')">Open notes</button>
-    </div>
-    <div id="homeNotes">
-      <p class="muted">No saved notes yet.</p>
-    </div>
+    <h2>Quick Notes</h2>
+    <div id="homeNotes">No notes yet.</div>
+    <button onclick="openPage('notes')">OPEN NOTES</button>
   </div>
 
   <div class="panel">
-    <div class="panelhead">
-      <h2>GCSE Revision</h2>
-      <button class="smallbtn" style="width:auto"
-        onclick="openPage('revision')">Revise</button>
-    </div>
-
-    <div class="stat" id="revisionProgress">0 / 0</div>
-    <p class="muted" id="revisionText">
-      Cards reviewed this session: 0
-    </p>
+    <h2>GCSE Revision</h2>
+    <div id="homeRevision">No revision cards yet.</div>
+    <button onclick="openPage('revision')">START REVISION</button>
   </div>
 
   <div class="panel">
-    <div class="panelhead">
-      <h2>Upcoming Reminders</h2>
-      <button class="smallbtn" style="width:auto"
-        onclick="openPage('calendar')">Manage</button>
-    </div>
-    <div id="homeReminders">
-      <p class="muted">No upcoming reminders.</p>
-    </div>
+    <h2>Upcoming Reminders</h2>
+    <div id="homeReminders">No reminders yet.</div>
+    <button onclick="openPage('reminders')">VIEW REMINDERS</button>
   </div>
 
   <div class="panel">
     <h2>Quick Access</h2>
     <div class="grid">
-      <button onclick="openPage('assistant')">
-        <span class="symbol">◉</span>AI Assistant
-      </button>
-      <button onclick="openPage('school')">
-        <span class="symbol">▦</span>Timetable
-      </button>
-      <button onclick="openPage('revision')">
-        <span class="symbol">▤</span>GCSE Revision
-      </button>
-      <button onclick="openPage('library')">
-        <span class="symbol">▧</span>Notes
-      </button>
-      <button onclick="openPage('games')">
-        <span class="symbol">◇</span>Games
-      </button>
-      <button onclick="openPage('calendar')">
-        <span class="symbol">◷</span>Reminders
-      </button>
+      <button onclick="openPage('school')">TIMETABLE</button>
+      <button onclick="openPage('revision')">FLASHCARDS</button>
+      <button onclick="openPage('notes')">MY NOTES</button>
+      <button onclick="openPage('reminders')">REMINDERS</button>
     </div>
   </div>
 
   <div class="panel">
     <h2>System Status</h2>
-    <div class="statusline">
-      <span>Dashboard</span><b>OPERATIONAL</b>
-    </div>
-    <div class="statusline">
-      <span>Offline data</span><b id="offlineStatus">READY</b>
-    </div>
-    <div class="statusline">
-      <span>AI connection</span><b>NOT CONFIGURED</b>
-    </div>
-    <div class="statusline">
-      <span>Remote JARVIS</span><b>NOT CONNECTED</b>
-    </div>
-    <p class="muted">
-      Your regular Kindle library remains available through the Kindle home screen.
-    </p>
+    <p>Dashboard: <strong>ONLINE</strong></p>
+    <p>Storage: <strong>LOCAL DEVICE</strong></p>
+    <p>AI Backend: <strong>NOT CONNECTED</strong></p>
   </div>
 </section>
+</main>
 
-<!-- AI ASSISTANT -->
 <section id="assistant" class="page">
   <div class="panel">
-    <h2>AI Assistant</h2>
-    <p>J.A.R.V.I.S. chat interface.</p>
-    <p class="muted">Secure AI connection is not configured yet.</p>
-    <div class="notice">
-      Your desktop J.A.R.V.I.S. remains separate.
-      This dashboard does not send your data to an AI service.
-    </div>
-    <p class="muted">
-      The chat interface will be activated when a suitable secure backend is ready.
-    </p>
+    <h2>J.A.R.V.I.S. Assistant</h2>
+    <p>Personal assistant interface.</p>
+    <p><strong>AI CONNECTION: STANDBY</strong></p>
+    <p>The secure AI backend has not been configured yet.</p>
+    <input type="text" placeholder="AI backend unavailable"
+      disabled style="width:100%;padding:12px">
+    <button disabled> SEND </button>
   </div>
-  <button class="back" onclick="openPage('home')">← Dashboard</button>
 </section>
 
-<!-- SCHOOL -->
 <section id="school" class="page">
   <div class="panel">
     <h2>School Timetable</h2>
-
-    <label for="lessonDay">Day</label>
-    <select id="lessonDay">
-      <option>Monday</option>
-      <option>Tuesday</option>
-      <option>Wednesday</option>
-      <option>Thursday</option>
-      <option>Friday</option>
-    </select>
-
-    <label for="lessonTime">Time</label>
-    <input id="lessonTime" placeholder="e.g. 09:00–10:00">
-
-    <label for="lessonName">Subject / lesson</label>
-    <input id="lessonName" placeholder="e.g. Physics">
-
-    <button onclick="addLesson()">＋ Add lesson</button>
-    <div id="timetableList"></div>
+    <div id="lessonList">No lessons added yet.</div>
+    <h3>Add a lesson</h3>
+    <input id="lessonSubject" placeholder="Subject"
+      style="width:100%;padding:12px;margin:5px 0">
+    <input id="lessonTime" placeholder="Time (e.g. 09:00)"
+      style="width:100%;padding:12px;margin:5px 0">
+    <input id="lessonDay" placeholder="Day (e.g. Monday)"
+      style="width:100%;padding:12px;margin:5px 0">
+    <button onclick="addLesson()">ADD LESSON</button>
   </div>
-  <button class="back" onclick="openPage('home')">← Dashboard</button>
 </section>
 
-<!-- REVISION -->
 <section id="revision" class="page">
   <div class="panel">
     <h2>GCSE Revision</h2>
-    <p class="muted">Create your own revision flashcards.</p>
-
-    <label for="cardSubject">Subject</label>
-    <input id="cardSubject" placeholder="e.g. Physics">
-
-    <label for="cardQuestion">Question</label>
-    <textarea id="cardQuestion" placeholder="Enter a question"></textarea>
-
-    <label for="cardAnswer">Answer</label>
-    <textarea id="cardAnswer" placeholder="Enter the answer"></textarea>
-
-    <button onclick="addCard()">＋ Save flashcard</button>
-    <hr>
-
-    <h3 id="flashSubject">Your flashcards</h3>
-    <div class="cardface" id="flashFace">
-      Add a flashcard to begin.
+    <div id="cardDisplay">No flashcards yet.</div>
+    <div class="grid">
+      <button onclick="showAnswer()">SHOW ANSWER</button>
+      <button onclick="markReviewed()">MARK REVIEWED</button>
     </div>
-
-    <p class="muted" id="flashCount">0 cards</p>
-
-    <div class="row">
-      <button class="smallbtn" onclick="previousCard()">← Previous</button>
-      <button class="smallbtn" onclick="flipCard()">Reveal</button>
-      <button class="smallbtn" onclick="nextCard()">Next →</button>
-    </div>
-
-    <button class="smallbtn" onclick="markReviewed()">
-      ✓ Mark as reviewed
-    </button>
-    <button class="smallbtn" onclick="deleteCurrentCard()">
-      Delete this card
-    </button>
+    <button onclick="nextCard()">NEXT CARD</button>
   </div>
-  <button class="back" onclick="openPage('home')">← Dashboard</button>
-</section>
-
-<!-- NOTES -->
-<section id="library" class="page">
   <div class="panel">
-    <h2>Notes</h2>
-    <p class="muted">Write and save notes locally on this Kindle browser.</p>
-
-    <label for="noteTitle">Note title</label>
-    <input id="noteTitle" placeholder="e.g. Physics – Energy">
-
-    <label for="noteBody">Note</label>
-    <textarea id="noteBody" placeholder="Write your notes here..."></textarea>
-
-    <button onclick="saveNote()">＋ Save note</button>
-    <div id="notesList"></div>
+    <h2>Add a Flashcard</h2>
+    <input id="cardSubject" placeholder="Subject"
+      style="width:100%;padding:12px;margin:5px 0">
+    <textarea id="cardQuestion" placeholder="Question"
+      style="width:100%;padding:12px;margin:5px 0"></textarea>
+    <textarea id="cardAnswer" placeholder="Answer"
+      style="width:100%;padding:12px;margin:5px 0"></textarea>
+    <button onclick="addCard()">ADD FLASHCARD</button>
   </div>
-  <button class="back" onclick="openPage('home')">← Dashboard</button>
 </section>
 
-<!-- GAMES -->
+<section id="notes" class="page">
+  <div class="panel">
+    <h2>My Notes</h2>
+    <div id="notesList">No notes saved yet.</div>
+  </div>
+  <div class="panel">
+    <h2>Create a Note</h2>
+    <input id="noteTitle" placeholder="Note title"
+      style="width:100%;padding:12px;margin:5px 0">
+    <textarea id="noteContent" placeholder="Write your note..."
+      style="width:100%;padding:12px;margin:5px 0;min-height:120px"></textarea>
+    <button onclick="saveNote()">SAVE NOTE</button>
+  </div>
+</section>
+
 <section id="games" class="page">
   <div class="panel">
-    <h2>Games & Puzzles</h2>
-    <h3>2048</h3>
-    <p class="muted">
-      Combine matching numbers using the directional buttons.
-    </p>
-
-    <div id="gameBoard"></div>
-    <p id="gameScore" class="muted">Score: 0</p>
-
-    <div class="grid">
-      <button class="smallbtn" onclick="move2048('up')">↑ Up</button>
-      <button class="smallbtn" onclick="move2048('down')">↓ Down</button>
-      <button class="smallbtn" onclick="move2048('left')">← Left</button>
-      <button class="smallbtn" onclick="move2048('right')">Right →</button>
-    </div>
-
-    <button class="smallbtn" onclick="newGame()">New game</button>
+    <h2>Number Challenge</h2>
+    <p>I'm thinking of a number between 1 and 20.</p>
+    <p id="puzzleMessage">Can you guess it?</p>
+    <input id="puzzleGuess" type="number" min="1" max="20"
+      placeholder="Your guess"
+      style="width:100%;padding:14px;margin:8px 0;font-size:18px">
+    <button onclick="submitGuess()">SUBMIT GUESS</button>
+    <button onclick="newPuzzle()" style="margin-top:8px">NEW GAME</button>
+    <p id="puzzleAttempts">Attempts: 0</p>
   </div>
-  <button class="back" onclick="openPage('home')">← Dashboard</button>
 </section>
 
-<!-- REMINDERS -->
-<section id="calendar" class="page">
+<section id="reminders" class="page">
   <div class="panel">
-    <h2>Reminders</h2>
-    <p class="muted">
-      Saved locally. This version does not send notifications.
-    </p>
-
-    <label for="reminderDate">Date</label>
-    <input id="reminderDate" type="date">
-
-    <label for="reminderText">Reminder</label>
-    <input id="reminderText" placeholder="e.g. Revise for Physics">
-
-    <button onclick="addReminder()">＋ Add reminder</button>
-    <div id="reminderList"></div>
+    <h2>My Reminders</h2>
+    <div id="reminderList">No reminders yet.</div>
   </div>
-  <button class="back" onclick="openPage('home')">← Dashboard</button>
+  <div class="panel">
+    <h2>Add a Reminder</h2>
+    <input id="reminderText" placeholder="Reminder"
+      style="width:100%;padding:12px;margin:5px 0">
+    <input id="reminderDate" type="date"
+      style="width:100%;padding:12px;margin:5px 0">
+    <button onclick="addReminder()">ADD REMINDER</button>
+  </div>
 </section>
+
+</main>
 
 <footer>
-  J.A.R.V.I.S. KINDLE PROJECT · BUILD 0.4 · E-INK OPTIMISED
+  <strong>J.A.R.V.I.S. BUILD 0.5</strong>
+  <p>Personal dashboard · Local device storage</p>
+  <p>AI services remain disconnected.</p>
 </footer>
+
 <script>
-/* =================================
-   J.A.R.V.I.S. BUILD 0.4
-   KINDLE COMPATIBLE JAVASCRIPT
-================================= */
+// J.A.R.V.I.S. BUILD 0.5
 
 function getData(key, fallback) {
   try {
-    var value = localStorage.getItem(key);
-    return value ? JSON.parse(value) : fallback;
-  } catch (e) {
+    var saved = localStorage.getItem(key);
+    return saved === null ? fallback : JSON.parse(saved);
+  } catch (error) {
     return fallback;
   }
 }
@@ -618,148 +313,270 @@ function getData(key, fallback) {
 function saveData(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
-  } catch (e) {
-    alert("Unable to save. Browser storage may be full.");
+  } catch (error) {
+    console.log("Could not save " + key);
   }
 }
 
+function safeText(value) {
+  var element = document.createElement("span");
+  element.textContent = String(value);
+  return element.innerHTML;
+}
+
+// Existing storage keys are preserved.
 var jarvisLessons = getData("jarvisLessons", []);
 var jarvisCards = getData("jarvisCards", []);
 var jarvisNotes = getData("jarvisNotes", []);
 var jarvisReminders = getData("jarvisReminders", []);
 var jarvisTasks = getData("jarvisTasks", []);
+var jarvisWeather = getData("jarvisWeather", null);
 var jarvisReviewSession = getData("jarvisReviewSession", 0);
+var jarvisActivityLog = getData("jarvisActivityLog", []);
 
 var currentCard = 0;
-var cardFlipped = false;
+var answerVisible = false;
+var puzzleNumber = 0;
+var puzzleAttempts = 0;
+var puzzleFinished = false;
 
-/* NAVIGATION */
-
-function openPage(page) {
-  var sections = document.getElementsByClassName("page");
-
-  for (var i = 0; i < sections.length; i++) {
-    sections[i].className = "page";
-  }
-
-  document.getElementById(page).className = "page active";
-  window.scrollTo(0, 0);
-
-  if (page === "school") renderLessons();
-  if (page === "revision") renderCard();
-  if (page === "library") renderNotes();
-  if (page === "calendar") renderReminders();
-  if (page === "games") render2048();
-
-  updateDashboard();
+function saveAllTasks() {
+  saveData("jarvisTasks", jarvisTasks);
 }
-
-/* CLOCK */
 
 function updateClock() {
   var now = new Date();
-  var hours = now.getHours();
-  var minutes = now.getMinutes();
+  var clock = document.getElementById("clock");
+  var date = document.getElementById("dateDisplay");
+  var greeting = document.getElementById("greeting");
 
-  var time = (hours < 10 ? "0" : "") + hours + ":";
-  time += (minutes < 10 ? "0" : "") + minutes;
+  if (clock) {
+    clock.textContent = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  }
 
-  document.getElementById("clock").innerHTML = time;
+  if (date) {
+    date.textContent = now.toLocaleDateString([], {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  }
 
-  var greeting = "Good evening.";
-  if (hours < 12) greeting = "Good morning.";
-  else if (hours < 18) greeting = "Good afternoon.";
-
-  document.getElementById("greeting").innerHTML = greeting;
-
-  var days = ["Sunday", "Monday", "Tuesday", "Wednesday",
-    "Thursday", "Friday", "Saturday"];
-
-  var months = ["January", "February", "March", "April",
-    "May", "June", "July", "August", "September",
-    "October", "November", "December"];
-
-  document.getElementById("date").innerHTML =
-    days[now.getDay()] + ", " + now.getDate() + " " +
-    months[now.getMonth()] + " " + now.getFullYear();
+  if (greeting) {
+    var hour = now.getHours();
+    greeting.textContent = hour < 12
+      ? "Good morning. Ready for the day?"
+      : hour < 18
+        ? "Good afternoon. What needs doing?"
+        : "Good evening. Let's get organised.";
+  }
 }
 
-updateClock();
-setInterval(updateClock, 60000);
+function openPage(pageName) {
+  var pages = document.querySelectorAll(".page");
 
-/* TIMETABLE */
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].classList.remove("active");
+  }
+
+  var target = document.getElementById(pageName);
+  if (target) target.classList.add("active");
+
+  if (pageName === "games") renderPuzzle();
+  if (pageName === "revision") renderCard();
+  if (pageName === "school") renderLessons();
+  if (pageName === "notes") renderNotes();
+  if (pageName === "reminders") renderReminders();
+}
+
+function addTask() {
+  var input = document.getElementById("taskInput");
+  var value = input.value.trim();
+
+  if (!value) return;
+
+  jarvisTasks.push({
+    text: value,
+    done: false
+  });
+
+  saveAllTasks();
+  input.value = "";
+  logActivity("Task added: " + value);
+  renderTasks();
+  updateDashboard();
+}
+
+function toggleTask(index) {
+  if (!jarvisTasks[index]) return;
+
+  jarvisTasks[index].done = !jarvisTasks[index].done;
+  saveAllTasks();
+
+  logActivity(
+    (jarvisTasks[index].done ? "Task completed: " : "Task reopened: ") +
+    jarvisTasks[index].text
+  );
+
+  renderTasks();
+  updateDashboard();
+}
+
+function deleteTask(index) {
+  if (!jarvisTasks[index]) return;
+
+  var taskName = jarvisTasks[index].text;
+  jarvisTasks.splice(index, 1);
+  saveAllTasks();
+
+  logActivity("Task deleted: " + taskName);
+  renderTasks();
+  updateDashboard();
+}
+
+function renderTasks() {
+  var list = document.getElementById("taskList");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  if (jarvisTasks.length === 0) {
+    list.textContent = "No tasks added yet.";
+    return;
+  }
+
+  for (var i = 0; i < jarvisTasks.length; i++) {
+    (function(index) {
+      var task = jarvisTasks[index];
+      var item = document.createElement("div");
+      item.style.padding = "9px 0";
+      item.style.borderBottom = "1px solid black";
+
+      var label = document.createElement("span");
+      label.textContent = (task.done ? "✓ " : "□ ") + task.text;
+      label.style.textDecoration = task.done ? "line-through" : "none";
+      label.style.display = "block";
+      label.style.marginBottom = "6px";
+
+      var toggle = document.createElement("button");
+      toggle.textContent = task.done ? "REOPEN" : "COMPLETE";
+      toggle.onclick = function() {
+        toggleTask(index);
+      };
+
+      var remove = document.createElement("button");
+      remove.textContent = "DELETE";
+      remove.style.marginTop = "5px";
+      remove.onclick = function() {
+        deleteTask(index);
+      };
+
+      item.appendChild(label);
+      item.appendChild(toggle);
+      item.appendChild(remove);
+      list.appendChild(item);
+    })(i);
+  }
+}
 
 function addLesson() {
-  var day = document.getElementById("lessonDay").value;
-  var time = document.getElementById("lessonTime").value;
-  var name = document.getElementById("lessonName").value;
+  var subject = document.getElementById("lessonSubject").value.trim();
+  var time = document.getElementById("lessonTime").value.trim();
+  var day = document.getElementById("lessonDay").value.trim();
 
-  if (!time || !name) {
-    alert("Enter a lesson time and subject.");
+  if (!subject || !time || !day) {
+    alert("Please enter the subject, time and day.");
     return;
   }
 
   jarvisLessons.push({
-    day: day,
+    subject: subject,
     time: time,
-    name: name
+    day: day
   });
 
   saveData("jarvisLessons", jarvisLessons);
 
+  document.getElementById("lessonSubject").value = "";
   document.getElementById("lessonTime").value = "";
-  document.getElementById("lessonName").value = "";
+  document.getElementById("lessonDay").value = "";
 
+  logActivity("Lesson added: " + subject);
   renderLessons();
   updateDashboard();
 }
 
 function renderLessons() {
-  var output = document.getElementById("timetableList");
-  output.innerHTML = "";
+  var list = document.getElementById("lessonList");
+  if (!list) return;
+
+  list.innerHTML = "";
 
   if (jarvisLessons.length === 0) {
-    output.innerHTML = "<p>No lessons added yet.</p>";
+    list.textContent = "No lessons added yet.";
     return;
   }
 
   for (var i = 0; i < jarvisLessons.length; i++) {
     var lesson = jarvisLessons[i];
-
-    var item = document.createElement("div");
-    item.className = "item";
-
-    item.innerHTML =
-      "<b>" + safeText(lesson.day) + "</b><br>" +
-      safeText(lesson.time) + " — " +
-      safeText(lesson.name);
-
-    var remove = document.createElement("button");
-    remove.className = "smallbtn";
-    remove.innerHTML = "Delete lesson";
-    remove.onclick = (function(index) {
-      return function() {
-        jarvisLessons.splice(index, 1);
-        saveData("jarvisLessons", jarvisLessons);
-        renderLessons();
-        updateDashboard();
-      };
-    })(i);
-
-    item.appendChild(remove);
-    output.appendChild(item);
+    var item = document.createElement("p");
+    item.textContent = lesson.day + " · " + lesson.time +
+      " · " + lesson.subject;
+    list.appendChild(item);
   }
 }
 
-/* FLASHCARDS */
+function renderHomeLessons() {
+  var area = document.getElementById("homeLessons");
+  if (!area) return;
+
+  area.innerHTML = "";
+
+  if (jarvisLessons.length === 0) {
+    area.textContent = "No lessons added yet.";
+    return;
+  }
+
+  for (var i = 0; i < jarvisLessons.length; i++) {
+    var lesson = jarvisLessons[i];
+    var line = document.createElement("p");
+    line.textContent = lesson.day + " · " + lesson.time +
+      " · " + lesson.subject;
+    area.appendChild(line);
+  }
+}
+
+function updateDashboard() {
+  renderTasks();
+  renderHomeLessons();
+  renderHomeNotes();
+  renderHomeReminders();
+
+  var completed = 0;
+  for (var i = 0; i < jarvisTasks.length; i++) {
+    if (jarvisTasks[i].done) completed++;
+  }
+
+  document.getElementById("taskCount").textContent =
+    completed + "/" + jarvisTasks.length;
+
+  document.getElementById("reminderCount").textContent =
+    jarvisReminders.length;
+}
+
+// REVISION FLASHCARDS
 
 function addCard() {
-  var subject = document.getElementById("cardSubject").value;
-  var question = document.getElementById("cardQuestion").value;
-  var answer = document.getElementById("cardAnswer").value;
+  var subject = document.getElementById("cardSubject").value.trim();
+  var question = document.getElementById("cardQuestion").value.trim();
+  var answer = document.getElementById("cardAnswer").value.trim();
 
   if (!subject || !question || !answer) {
-    alert("Complete all flashcard fields.");
+    alert("Please complete all flashcard fields.");
     return;
   }
 
@@ -775,56 +592,61 @@ function addCard() {
   document.getElementById("cardQuestion").value = "";
   document.getElementById("cardAnswer").value = "";
 
+  logActivity("Flashcard added: " + subject);
   currentCard = jarvisCards.length - 1;
-  cardFlipped = false;
-
   renderCard();
   updateDashboard();
 }
 
 function renderCard() {
-  var face = document.getElementById("flashFace");
+  var area = document.getElementById("cardDisplay");
+  if (!area) return;
+
+  area.innerHTML = "";
 
   if (jarvisCards.length === 0) {
-    face.innerHTML = "Add a flashcard to begin.";
-    document.getElementById("flashCount").innerHTML = "0 cards";
-    document.getElementById("flashSubject").innerHTML = "Your flashcards";
+    area.textContent = "No flashcards yet.";
     return;
   }
 
   if (currentCard >= jarvisCards.length) currentCard = 0;
-  if (currentCard < 0) currentCard = 0;
 
   var card = jarvisCards[currentCard];
 
-  document.getElementById("flashSubject").innerHTML =
-    safeText(card.subject);
+  var subject = document.createElement("h3");
+  subject.textContent = card.subject;
 
-  face.innerHTML = cardFlipped ?
-    safeText(card.answer) : safeText(card.question);
+  var question = document.createElement("p");
+  question.textContent = card.question;
 
-  document.getElementById("flashCount").innerHTML =
-    (currentCard + 1) + " / " + jarvisCards.length;
+  area.appendChild(subject);
+  area.appendChild(question);
+
+  if (answerVisible) {
+    var answer = document.createElement("p");
+    answer.textContent = "Answer: " + card.answer;
+    answer.style.borderTop = "1px solid black";
+    answer.style.paddingTop = "10px";
+    area.appendChild(answer);
+  }
+
+  var counter = document.createElement("p");
+  counter.className = "muted";
+  counter.textContent = "Card " + (currentCard + 1) +
+    " of " + jarvisCards.length;
+  area.appendChild(counter);
 }
 
-function flipCard() {
-  if (jarvisCards.length === 0) return;
-  cardFlipped = !cardFlipped;
+function showAnswer() {
+  answerVisible = true;
   renderCard();
 }
 
 function nextCard() {
   if (jarvisCards.length === 0) return;
-  currentCard = (currentCard + 1) % jarvisCards.length;
-  cardFlipped = false;
-  renderCard();
-}
 
-function previousCard() {
-  if (jarvisCards.length === 0) return;
-  currentCard--;
-  if (currentCard < 0) currentCard = jarvisCards.length - 1;
-  cardFlipped = false;
+  currentCard = (currentCard + 1) % jarvisCards.length;
+  answerVisible = false;
   renderCard();
 }
 
@@ -834,639 +656,405 @@ function markReviewed() {
   jarvisReviewSession++;
   saveData("jarvisReviewSession", jarvisReviewSession);
 
-  alert("Card marked as reviewed.");
-  updateDashboard();
+  logActivity("Flashcard reviewed: " +
+    jarvisCards[currentCard].subject);
+
+  nextCard();
 }
 
-function deleteCurrentCard() {
-  if (jarvisCards.length === 0) return;
-
-  if (!confirm("Delete this flashcard?")) return;
-
-  jarvisCards.splice(currentCard, 1);
-  saveData("jarvisCards", jarvisCards);
-
-  if (currentCard >= jarvisCards.length) {
-    currentCard = 0;
-  }
-
-  cardFlipped = false;
-  renderCard();
-  updateDashboard();
-}
-
-/* NOTES */
+// NOTES
 
 function saveNote() {
-  var title = document.getElementById("noteTitle").value;
-  var body = document.getElementById("noteBody").value;
+  var title = document.getElementById("noteTitle").value.trim();
+  var content = document.getElementById("noteContent").value.trim();
 
-  if (!title || !body) {
-    alert("Enter a title and note.");
+  if (!title || !content) {
+    alert("Please enter a title and note.");
     return;
   }
 
   jarvisNotes.push({
     title: title,
-    body: body,
+    content: content,
     date: new Date().toLocaleDateString()
   });
 
   saveData("jarvisNotes", jarvisNotes);
 
   document.getElementById("noteTitle").value = "";
-  document.getElementById("noteBody").value = "";
+  document.getElementById("noteContent").value = "";
 
+  logActivity("Note saved: " + title);
   renderNotes();
   updateDashboard();
 }
 
 function renderNotes() {
-  var output = document.getElementById("notesList");
-  output.innerHTML = "";
+  var area = document.getElementById("notesList");
+  if (!area) return;
+
+  area.innerHTML = "";
 
   if (jarvisNotes.length === 0) {
-    output.innerHTML = "<p>No saved notes.</p>";
+    area.textContent = "No notes saved yet.";
     return;
   }
 
-  for (var i = jarvisNotes.length - 1; i >= 0; i--) {
+  for (var i = 0; i < jarvisNotes.length; i++) {
     var note = jarvisNotes[i];
-
     var item = document.createElement("div");
-    item.className = "item";
+    item.className = "panel";
 
-    var heading = document.createElement("b");
+    var heading = document.createElement("h3");
     heading.textContent = note.title;
+
+    var content = document.createElement("p");
+    content.textContent = note.content;
 
     var date = document.createElement("p");
     date.className = "muted";
     date.textContent = note.date || "";
 
-    var body = document.createElement("p");
-    body.textContent = note.body;
-
     var remove = document.createElement("button");
-    remove.className = "smallbtn";
-    remove.textContent = "Delete note";
+    remove.textContent = "DELETE NOTE";
 
-    remove.onclick = (function(index) {
-      return function() {
-        if (!confirm("Delete this note?")) return;
+    (function(index) {
+      remove.onclick = function() {
+        var name = jarvisNotes[index].title;
         jarvisNotes.splice(index, 1);
         saveData("jarvisNotes", jarvisNotes);
+        logActivity("Note deleted: " + name);
         renderNotes();
         updateDashboard();
       };
     })(i);
 
     item.appendChild(heading);
+    item.appendChild(content);
     item.appendChild(date);
-    item.appendChild(body);
     item.appendChild(remove);
-    output.appendChild(item);
+    area.appendChild(item);
   }
 }
 
-/* REMINDERS */
+function renderHomeNotes() {
+  var area = document.getElementById("homeNotes");
+  if (!area) return;
+
+  area.innerHTML = "";
+
+  if (jarvisNotes.length === 0) {
+    area.textContent = "No notes yet.";
+    return;
+  }
+
+  var count = document.createElement("p");
+  count.textContent = jarvisNotes.length + " saved note(s).";
+  area.appendChild(count);
+
+  var latest = jarvisNotes[jarvisNotes.length - 1];
+  var title = document.createElement("p");
+  title.textContent = "Latest: " + latest.title;
+  area.appendChild(title);
+}
+
+// REMINDERS
 
 function addReminder() {
+  var text = document.getElementById("reminderText").value.trim();
   var date = document.getElementById("reminderDate").value;
-  var text = document.getElementById("reminderText").value;
 
-  if (!date || !text) {
-    alert("Enter a date and reminder.");
+  if (!text || !date) {
+    alert("Please enter a reminder and date.");
     return;
   }
 
   jarvisReminders.push({
-    date: date,
-    text: text
+    text: text,
+    date: date
   });
 
   saveData("jarvisReminders", jarvisReminders);
 
   document.getElementById("reminderText").value = "";
+  document.getElementById("reminderDate").value = "";
 
+  logActivity("Reminder added: " + text);
   renderReminders();
   updateDashboard();
 }
 
 function renderReminders() {
-  var output = document.getElementById("reminderList");
-  output.innerHTML = "";
+  var area = document.getElementById("reminderList");
+  if (!area) return;
+
+  area.innerHTML = "";
 
   if (jarvisReminders.length === 0) {
-    output.innerHTML = "<p>No reminders added.</p>";
+    area.textContent = "No reminders yet.";
     return;
   }
 
-  jarvisReminders.sort(function(a, b) {
-    return a.date < b.date ? -1 : 1;
-  });
-
   for (var i = 0; i < jarvisReminders.length; i++) {
-    var reminder = jarvisReminders[i];
+    (function(index) {
+      var reminder = jarvisReminders[index];
+      var item = document.createElement("div");
+      item.style.padding = "9px 0";
 
-    var item = document.createElement("div");
-    item.className = "item";
+      var label = document.createElement("p");
+      label.textContent = reminder.date + " · " + reminder.text;
 
-    item.innerHTML =
-      "<b>" + safeText(reminder.date) + "</b><br>" +
-      safeText(reminder.text);
-
-    var remove = document.createElement("button");
-    remove.className = "smallbtn";
-    remove.innerHTML = "Delete reminder";
-
-    remove.onclick = (function(index) {
-      return function() {
+      var remove = document.createElement("button");
+      remove.textContent = "DELETE REMINDER";
+      remove.onclick = function() {
+        var name = jarvisReminders[index].text;
         jarvisReminders.splice(index, 1);
         saveData("jarvisReminders", jarvisReminders);
+        logActivity("Reminder deleted: " + name);
         renderReminders();
         updateDashboard();
       };
+
+      item.appendChild(label);
+      item.appendChild(remove);
+      area.appendChild(item);
     })(i);
-
-    item.appendChild(remove);
-    output.appendChild(item);
-  }
-}
-
-/* TASKS */
-
-function addTask() {
-  var input = document.getElementById("taskInput");
-  var text = input.value;
-
-  if (!text) {
-    alert("Enter a task first.");
-    return;
-  }
-
-  jarvisTasks.push({
-    text: text,
-    done: false
-  });
-
-  saveData("jarvisTasks", jarvisTasks);
-  input.value = "";
-
-  renderTasks();
-  updateDashboard();
-}
-
-function renderTasks() {
-  var output = document.getElementById("taskList");
-  output.innerHTML = "";
-
-  if (jarvisTasks.length === 0) {
-    output.innerHTML = "<p class='muted'>No tasks yet.</p>";
-    return;
-  }
-
-  for (var i = 0; i < jarvisTasks.length; i++) {
-    var task = jarvisTasks[i];
-
-    var row = document.createElement("div");
-    row.className = "taskrow";
-
-    var check = document.createElement("input");
-    check.type = "checkbox";
-    check.checked = task.done;
-
-    check.onchange = (function(index) {
-      return function() {
-        jarvisTasks[index].done = this.checked;
-        saveData("jarvisTasks", jarvisTasks);
-        renderTasks();
-        updateDashboard();
-      };
-    })(i);
-
-    var text = document.createElement("span");
-    text.className = "tasktext" + (task.done ? " taskdone" : "");
-    text.textContent = task.text;
-
-    var remove = document.createElement("button");
-    remove.className = "smallbtn";
-    remove.style.width = "75px";
-    remove.textContent = "Delete";
-
-    remove.onclick = (function(index) {
-      return function() {
-        jarvisTasks.splice(index, 1);
-        saveData("jarvisTasks", jarvisTasks);
-        renderTasks();
-        updateDashboard();
-      };
-    })(i);
-
-    row.appendChild(check);
-    row.appendChild(text);
-    row.appendChild(remove);
-    output.appendChild(row);
-  }
-}
-
-/* DASHBOARD */
-
-function updateDashboard() {
-  var count = 0;
-  for (var i = 0; i < jarvisTasks.length; i++) {
-    if (!jarvisTasks[i].done) count++;
-  }
-
-  document.getElementById("homeTaskCount").innerHTML = count;
-  document.getElementById("homeCardCount").innerHTML =
-    jarvisCards.length;
-
-  document.getElementById("revisionProgress").innerHTML =
-    jarvisReviewSession + " reviewed";
-
-  document.getElementById("revisionText").innerHTML =
-    "Cards reviewed this session: " + jarvisReviewSession;
-
-  renderTasks();
-  renderHomeLessons();
-  renderHomeNotes();
-  renderHomeReminders();
-}
-
-function renderHomeLessons() {
-  var output = document.getElementById("homeLessons");
-  var days = ["Sunday", "Monday", "Tuesday", "Wednesday",
-    "Thursday", "Friday", "Saturday"];
-  var today = days[new Date().getDay()];
-  var found = 0;
-
-  output.innerHTML = "";
-
-  for (var i = 0; i < jarvisLessons.length; i++) {
-    if (jarvisLessons[i].day === today) {
-      var item = document.createElement("div");
-      item.className = "item";
-      item.textContent =
-        jarvisLessons[i].time + " — " + jarvisLessons[i].name;
-      output.appendChild(item);
-      found++;
-    }
-  }
-
-  if (!found) {
-    output.innerHTML = "<p class='muted'>No lessons scheduled for today.</p>";
-  }
-}
-
-function renderHomeNotes() {
-  var output = document.getElementById("homeNotes");
-  output.innerHTML = "";
-
-  if (jarvisNotes.length === 0) {
-    output.innerHTML = "<p class='muted'>No saved notes yet.</p>";
-    return;
-  }
-
-  var start = Math.max(0, jarvisNotes.length - 2);
-
-  for (var i = jarvisNotes.length - 1; i >= start; i--) {
-    var item = document.createElement("div");
-    item.className = "item";
-    item.textContent = jarvisNotes[i].title;
-    output.appendChild(item);
   }
 }
 
 function renderHomeReminders() {
-  var output = document.getElementById("homeReminders");
-  output.innerHTML = "";
+  var area = document.getElementById("homeReminders");
+  if (!area) return;
 
-  var today = new Date();
-  var todayString = today.getFullYear() + "-" +
-    ("0" + (today.getMonth() + 1)).slice(-2) + "-" +
-    ("0" + today.getDate()).slice(-2);
+  area.innerHTML = "";
 
-  var found = 0;
+  if (jarvisReminders.length === 0) {
+    area.textContent = "No reminders yet.";
+    return;
+  }
 
   for (var i = 0; i < jarvisReminders.length; i++) {
-    if (jarvisReminders[i].date >= todayString) {
-      var item = document.createElement("div");
-      item.className = "item";
-      item.textContent =
-        jarvisReminders[i].date + " — " + jarvisReminders[i].text;
-      output.appendChild(item);
-      found++;
-    }
-  }
-
-  if (!found) {
-    output.innerHTML = "<p class='muted'>No upcoming reminders.</p>";
+    var line = document.createElement("p");
+    line.textContent = jarvisReminders[i].date + " · " +
+      jarvisReminders[i].text;
+    area.appendChild(line);
   }
 }
 
-/* WEATHER */
+// ACTIVITY LOG
 
-function weatherRequest(url, callback) {
-  var request = new XMLHttpRequest();
-
-  request.open("GET", url, true);
-  request.timeout = 12000;
-
-  request.onreadystatechange = function() {
-    if (request.readyState === 4) {
-      if (request.status >= 200 && request.status < 300) {
-        try {
-          callback(null, JSON.parse(request.responseText));
-        } catch (e) {
-          callback("Invalid weather response.");
-        }
-      } else {
-        callback("Weather service unavailable.");
-      }
-    }
-  };
-
-  request.ontimeout = function() {
-    callback("Weather request timed out.");
-  };
-
-  request.onerror = function() {
-    callback("Could not connect to weather service.");
-  };
-
-  try {
-    request.send();
-  } catch (e) {
-    callback("Weather connection failed.");
-  }
-}
-
-function loadWeather(latitude, longitude, place) {
-  var url = "https://api.open-meteo.com/v1/forecast" +
-    "?latitude=" + latitude +
-    "&longitude=" + longitude +
-    "&current_weather=true";
-
-  document.getElementById("weatherState").innerHTML = "LOADING";
-
-  weatherRequest(url, function(error, data) {
-    if (error || !data.current_weather) {
-      document.getElementById("weatherState").innerHTML = "OFFLINE";
-      showCachedWeather();
-      return;
-    }
-
-    var weather = {
-      place: place,
-      temperature: data.current_weather.temperature,
-      wind: data.current_weather.windspeed,
-      code: data.current_weather.weathercode
-    };
-
-    saveData("jarvisWeather", weather);
-    displayWeather(weather);
+function logActivity(message) {
+  jarvisActivityLog.unshift({
+    message: message,
+    time: new Date().toLocaleString()
   });
+
+  if (jarvisActivityLog.length > 50) {
+    jarvisActivityLog.length = 50;
+  }
+
+  saveData("jarvisActivityLog", jarvisActivityLog);
+  renderActivityLog();
 }
 
-function displayWeather(weather) {
-  document.getElementById("weatherState").innerHTML = "ONLINE";
+function renderActivityLog() {
+  var area = document.getElementById("activityLog");
+  if (!area) return;
 
-  document.getElementById("weatherDisplay").innerHTML =
-    "<p><b>" + safeText(weather.place) + "</b></p>" +
-    "<div class='weatherbig'>" +
-    safeText(String(weather.temperature)) + "°C</div>" +
-    "<p class='muted'>Wind: " +
-    safeText(String(weather.wind)) + " km/h</p>" +
-    "<p class='muted'>" +
-    weatherDescription(weather.code) + "</p>";
+  area.innerHTML = "";
+
+  if (jarvisActivityLog.length === 0) {
+    area.textContent = "No recent activity.";
+    return;
+  }
+
+  for (var i = 0; i < jarvisActivityLog.length; i++) {
+    var item = document.createElement("div");
+    item.className = "activity-item";
+
+    var message = document.createElement("div");
+    message.textContent = jarvisActivityLog[i].message;
+
+    var time = document.createElement("div");
+    time.className = "activity-time";
+    time.textContent = jarvisActivityLog[i].time;
+
+    item.appendChild(message);
+    item.appendChild(time);
+    area.appendChild(item);
+  }
 }
 
-function weatherDescription(code) {
-  if (code === 0) return "Clear sky";
-  if (code === 1 || code === 2) return "Mostly clear";
-  if (code === 3) return "Cloudy";
-  if (code >= 45 && code <= 48) return "Fog";
-  if (code >= 51 && code <= 67) return "Drizzle or rain";
-  if (code >= 71 && code <= 77) return "Snow";
-  if (code >= 80 && code <= 82) return "Rain showers";
-  if (code >= 95) return "Thunderstorms";
-  return "Weather conditions available";
+function clearActivityLog() {
+  if (!confirm("Clear your activity history?")) return;
+
+  jarvisActivityLog = [];
+  saveData("jarvisActivityLog", jarvisActivityLog);
+  renderActivityLog();
 }
+
+// NUMBER CHALLENGE
+
+function newPuzzle() {
+  puzzleNumber = Math.floor(Math.random() * 20) + 1;
+  puzzleAttempts = 0;
+  puzzleFinished = false;
+
+  var message = document.getElementById("puzzleMessage");
+  var attempts = document.getElementById("puzzleAttempts");
+  var input = document.getElementById("puzzleGuess");
+
+  if (message) message.textContent = "Can you guess it?";
+  if (attempts) attempts.textContent = "Attempts: 0";
+  if (input) input.value = "";
+}
+
+function renderPuzzle() {
+  if (puzzleNumber === 0) newPuzzle();
+}
+
+function submitGuess() {
+  if (puzzleFinished) {
+    alert("Start a new game first!");
+    return;
+  }
+
+  var input = document.getElementById("puzzleGuess");
+  var guess = parseInt(input.value, 10);
+  var message = document.getElementById("puzzleMessage");
+
+  if (isNaN(guess) || guess < 1 || guess > 20) {
+    message.textContent = "Enter a number from 1 to 20.";
+    return;
+  }
+
+  puzzleAttempts++;
+
+  if (guess === puzzleNumber) {
+    message.textContent = "Correct! You got it in " +
+      puzzleAttempts + " attempt(s)!";
+    puzzleFinished = true;
+  } else if (guess < puzzleNumber) {
+    message.textContent = "Too low! Try a higher number.";
+  } else {
+    message.textContent = "Too high! Try a lower number.";
+  }
+
+  document.getElementById("puzzleAttempts").textContent =
+    "Attempts: " + puzzleAttempts;
+}
+
+// WEATHER
 
 function showCachedWeather() {
-  var cached = getData("jarvisWeather", null);
+  var area = document.getElementById("weatherDisplay");
+  if (!area) return;
 
-  if (cached) {
-    displayWeather(cached);
-    document.getElementById("weatherState").innerHTML = "CACHED";
-  } else {
-    document.getElementById("weatherDisplay").innerHTML =
-      "<p class='muted'>Weather unavailable. Check your connection.</p>";
+  if (jarvisWeather) {
+    area.textContent = jarvisWeather;
   }
 }
 
-function requestWeather() {
-  if (!navigator.geolocation) {
-    alert("Location is not supported by this browser. Enter a town instead.");
-    return;
-  }
+function getWeather() {
+  var city = prompt("Enter your town or city:");
 
-  navigator.geolocation.getCurrentPosition(
-    function(position) {
-      loadWeather(
-        position.coords.latitude,
-        position.coords.longitude,
-        "Current location"
-      );
-    },
-    function() {
-      alert("Location was not available. You can enter a town instead.");
-    },
-    { timeout: 10000 }
-  );
-}
+  if (!city || !city.trim()) return;
 
-function manualWeather() {
-  var city = document.getElementById("weatherCity").value;
+  var area = document.getElementById("weatherDisplay");
+  area.textContent = "Loading weather for " + city + "...";
 
-  if (!city) {
-    alert("Enter a town or city.");
-    return;
-  }
+  var geo = new XMLHttpRequest();
+  var geoUrl = "https://geocoding-api.open-meteo.com/v1/search?name=" +
+    encodeURIComponent(city.trim()) + "&count=1&language=en&format=json";
 
-  var url = "https://geocoding-api.open-meteo.com/v1/search" +
-    "?name=" + encodeURIComponent(city) +
-    "&count=1&language=en&format=json";
+  geo.open("GET", geoUrl, true);
 
-  document.getElementById("weatherState").innerHTML = "SEARCHING";
+  geo.onreadystatechange = function() {
+    if (geo.readyState !== 4) return;
 
-  weatherRequest(url, function(error, data) {
-    if (error || !data.results || data.results.length === 0) {
-      alert("Town or city not found.");
-      document.getElementById("weatherState").innerHTML = "OFFLINE";
+    if (geo.status !== 200) {
+      area.textContent = "Could not retrieve the location.";
       return;
     }
 
-    var result = data.results[0];
+    try {
+      var result = JSON.parse(geo.responseText);
 
-    loadWeather(
-      result.latitude,
-      result.longitude,
-      result.name
-    );
-  });
-}
-
-/* 2048 */
-
-var gameGrid = [];
-var gameScore = 0;
-
-function newGame() {
-  gameGrid = [];
-  gameScore = 0;
-
-  for (var i = 0; i < 4; i++) {
-    gameGrid[i] = [];
-    for (var j = 0; j < 4; j++) {
-      gameGrid[i][j] = 0;
-    }
-  }
-
-  addRandomTile();
-  addRandomTile();
-  render2048();
-}
-
-function addRandomTile() {
-  var empty = [];
-
-  for (var r = 0; r < 4; r++) {
-    for (var c = 0; c < 4; c++) {
-      if (gameGrid[r][c] === 0) {
-        empty.push({ row: r, col: c });
+      if (!result.results || result.results.length === 0) {
+        area.textContent = "Location not found. Try another city.";
+        return;
       }
+
+      var place = result.results[0];
+      loadWeather(place.latitude, place.longitude, place.name);
+    } catch (error) {
+      area.textContent = "Weather data could not be read.";
     }
-  }
+  };
 
-  if (empty.length === 0) return;
-
-  var position = empty[Math.floor(Math.random() * empty.length)];
-
-  gameGrid[position.row][position.col] =
-    Math.random() < 0.9 ? 2 : 4;
+  geo.send();
 }
 
-function render2048() {
-  var board = document.getElementById("gameBoard");
-  board.innerHTML = "";
+function loadWeather(latitude, longitude, city) {
+  var request = new XMLHttpRequest();
 
-  for (var r = 0; r < 4; r++) {
-    for (var c = 0; c < 4; c++) {
-      var cell = document.createElement("div");
-      cell.className = "gamecell";
+  var url = "https://api.open-meteo.com/v1/forecast?latitude=" +
+    latitude + "&longitude=" + longitude +
+    "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m";
 
-      var value = gameGrid[r] ? gameGrid[r][c] : 0;
-      cell.textContent = value === 0 ? "" : value;
+  request.open("GET", url, true);
 
-      board.appendChild(cell);
+  request.onreadystatechange = function() {
+    if (request.readyState !== 4) return;
+
+    var area = document.getElementById("weatherDisplay");
+
+    if (request.status !== 200) {
+      area.textContent = "Weather service unavailable.";
+      return;
     }
-  }
 
-  document.getElementById("gameScore").innerHTML =
-    "Score: " + gameScore;
+    try {
+      var data = JSON.parse(request.responseText);
+      var current = data.current;
+
+      var description = city + "\n" +
+        "Temperature: " + current.temperature_2m + "°C\n" +
+        "Feels like: " + current.apparent_temperature + "°C\n" +
+        "Humidity: " + current.relative_humidity_2m + "%\n" +
+        "Wind: " + current.wind_speed_10m + " km/h";
+
+      jarvisWeather = description;
+      saveData("jarvisWeather", jarvisWeather);
+
+      area.textContent = description;
+    } catch (error) {
+      area.textContent = "Could not process weather data.";
+    }
+  };
+
+  request.send();
 }
 
-function move2048(direction) {
-  var moved = false;
-
-  for (var line = 0; line < 4; line++) {
-    var values = [];
-
-    for (var pos = 0; pos < 4; pos++) {
-      var r = direction === "up" ? pos :
-        direction === "down" ? 3 - pos : line;
-
-      var c = direction === "left" ? pos :
-        direction === "right" ? 3 - pos : line;
-
-      values.push(gameGrid[r][c]);
-    }
-
-    var old = values.join(",");
-    var filtered = [];
-
-    for (var k = 0; k < values.length; k++) {
-      if (values[k] !== 0) filtered.push(values[k]);
-    }
-
-    var merged = [];
-
-    for (var m = 0; m < filtered.length; m++) {
-      if (filtered[m] === filtered[m + 1]) {
-        merged.push(filtered[m] * 2);
-        gameScore += filtered[m] * 2;
-        m++;
-      } else {
-        merged.push(filtered[m]);
-      }
-    }
-
-    while (merged.length < 4) merged.push(0);
-
-    if (old !== merged.join(",")) moved = true;
-
-    for (var p = 0; p < 4; p++) {
-      var targetRow = direction === "up" ? p :
-        direction === "down" ? 3 - p : line;
-
-      var targetCol = direction === "left" ? p :
-        direction === "right" ? 3 - p : line;
-
-      gameGrid[targetRow][targetCol] = merged[p];
-    }
-  }
-
-  if (moved) {
-    addRandomTile();
-  }
-
-  render2048();
-}
-
-function render2048Safe() {
-  if (!gameGrid.length) newGame();
-  else render2048();
-}
-
-/* TEXT SAFETY */
-
-function safeText(value) {
-  var div = document.createElement("div");
-  div.textContent = value === undefined || value === null ?
-    "" : String(value);
-  return div.innerHTML;
-}
-
-/* STARTUP */
+// STARTUP
 
 function initialiseJarvis() {
-  document.getElementById("storageStatus").innerHTML =
-    "AVAILABLE";
+  updateClock();
+  setInterval(updateClock, 30000);
 
   renderTasks();
   renderLessons();
   renderCard();
   renderNotes();
   renderReminders();
+  renderActivityLog();
+
   updateDashboard();
   showCachedWeather();
-
-  if (!gameGrid.length) newGame();
+  newPuzzle();
 }
 
-initialiseJarvis();
-
+window.onload = initialiseJarvis;
 </script>
 </body>
 </html>
