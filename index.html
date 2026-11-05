@@ -16,11 +16,16 @@ input,textarea{font-family:Arial,sans-serif;font-size:16px}.notification-panel{d
 .notification-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.notification-actions button{font-size:12px;padding:9px 5px}
 .setting-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #aaa}.setting-row input{width:22px;height:22px}
 @media(max-width:420px){body{padding:10px}.grid{gap:7px}button{font-size:13px;padding:11px 5px}}
+
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0}
+.setting-row input{width:auto;min-width:24px;min-height:24px}
+#dailyBriefing p{margin:7px 0}.compact .panel{padding:10px;margin:8px 0}
+.high-contrast{background:#fff;color:#000}.high-contrast button{border:2px solid #000}
 </style>
 </head>
 <body>
 <header>
- <div class="topline"><span>J.A.R.V.I.S. SYSTEM</span><span>BUILD 0.6.2</span></div>
+ <div class="topline"><span>J.A.R.V.I.S. SYSTEM</span><span>BUILD 0.7</span></div>
  <h1>Good to see you.</h1><p id="dateDisplay" class="muted">Loading date...</p>
  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
   <div id="clock" class="clock">--:--</div>
@@ -36,17 +41,21 @@ input,textarea{font-family:Arial,sans-serif;font-size:16px}.notification-panel{d
  <button onclick="openPage('home')">⌂ HOME</button><button onclick="openPage('assistant')">✦ ASSISTANT</button>
  <button onclick="openPage('school')">▤ SCHOOL</button><button onclick="openPage('revision')">▣ REVISION</button>
  <button onclick="openPage('notes')">✎ NOTES</button><button onclick="openPage('games')">◇ GAMES</button>
- <button onclick="openPage('reminders')">◷ REMINDERS</button><button onclick="openPage('notifications')">🔔 NOTIFICATIONS</button>
+ <button onclick="openPage('reminders')">◷ REMINDERS</button><button onclick="openPage('notifications')">🔔 NOTIFICATIONS</button><button onclick="openPage('settings')">⚙ SETTINGS</button>
 </nav>
 <main>
 <section id="home" class="page active">
- <div class="panel"><div class="panelhead"><h2>System Overview</h2><span class="kicker">BUILD 0.6.2</span></div>
+ <div class="panel"><div class="panelhead"><h2>System Overview</h2><span class="kicker">BUILD 0.7</span></div>
   <p>Welcome to your personal J.A.R.V.I.S. dashboard.</p><div class="grid">
    <div><span class="kicker">SYSTEM</span><h3>ONLINE</h3></div><div><span class="kicker">AI CONNECTION</span><h3>STANDBY</h3></div>
    <div><span class="kicker">TASKS</span><h3 id="taskCount">0</h3></div><div><span class="kicker">REMINDERS</span><h3 id="reminderCount">0</h3></div>
   </div>
  </div>
- <div class="panel"><h2>Recent Activity</h2><div id="activityLog">No recent activity.</div><button onclick="clearActivityLog()" style="margin-top:10px">CLEAR ACTIVITY</button></div>
+ 
+ <div class="panel"><div class="panelhead"><h2>Daily Briefing</h2><button onclick="generateDailyBriefing()" style="width:auto;padding:8px 12px">REFRESH</button></div><div id="dailyBriefing">Your briefing will appear here.</div></div>
+ <div class="panel"><h2>Preferences</h2><p id="preferenceSummary">Default dashboard preferences.</p><button onclick="openPage('settings')">OPEN SETTINGS</button></div>
+ <div class="panel"><h2>Storage & Performance</h2><p id="storageSummary">Checking local storage…</p><div class="grid"><button onclick="exportJarvisData()">EXPORT BACKUP</button><button onclick="importJarvisData()">IMPORT BACKUP</button></div><input id="backupImportInput" type="file" accept=".json,application/json" style="display:none" onchange="handleBackupImport(event)"></div>
+<div class="panel"><h2>Recent Activity</h2><div id="activityLog">No recent activity.</div><button onclick="clearActivityLog()" style="margin-top:10px">CLEAR ACTIVITY</button></div>
  <div class="panel"><h2>Today's Schedule</h2><div id="homeLessons">No lessons added yet.</div><button onclick="openPage('school')">OPEN TIMETABLE</button></div>
  <div class="panel"><h2>Daily Tasks</h2><div id="homeTasks"></div><div id="taskList"></div><input id="taskInput" placeholder="Add a task..." style="width:100%;padding:12px;margin:8px 0"><button onclick="addTask()">ADD TASK</button></div>
  <div class="panel"><h2>Weather</h2><div id="weatherDisplay">Weather information not loaded.</div><button onclick="getWeather()">REFRESH WEATHER</button></div>
@@ -64,6 +73,18 @@ input,textarea{font-family:Arial,sans-serif;font-size:16px}.notification-panel{d
 <section id="notes" class="page"><div class="panel"><h2>My Notes</h2><div id="notesList">No notes saved yet.</div></div><div class="panel"><h2>Create a Note</h2><input id="noteTitle" placeholder="Note title" style="width:100%;padding:12px;margin:5px 0"><textarea id="noteContent" placeholder="Write your note..." style="width:100%;padding:12px;margin:5px 0;min-height:120px"></textarea><button onclick="saveNote()">SAVE NOTE</button></div></section>
 <section id="games" class="page"><div class="panel"><h2>Number Challenge</h2><p>I'm thinking of a number between 1 and 20.</p><p id="puzzleMessage">Can you guess it?</p><input id="puzzleGuess" type="number" min="1" max="20" placeholder="Your guess" style="width:100%;padding:14px;margin:8px 0"><button onclick="submitGuess()">SUBMIT GUESS</button><button onclick="newPuzzle()" style="margin-top:8px">NEW GAME</button><p id="puzzleAttempts">Attempts: 0</p></div></section>
 <section id="reminders" class="page"><div class="panel"><h2>My Reminders</h2><div id="reminderList">No reminders yet.</div></div><div class="panel"><h2>Add a Reminder</h2><input id="reminderText" placeholder="Reminder" style="width:100%;padding:12px;margin:5px 0"><input id="reminderDate" type="date" style="width:100%;padding:12px;margin:5px 0"><button onclick="addReminder()">ADD REMINDER</button></div></section>
+
+<section id="settings" class="page">
+ <div class="panel"><h2>Dashboard Preferences</h2>
+  <label for="prefGreeting">Greeting name (optional)</label><input id="prefGreeting" placeholder="Your name" style="width:100%;padding:12px;margin:5px 0">
+  <div class="setting-row"><label for="prefBriefing">Show daily briefing</label><input id="prefBriefing" type="checkbox" checked onchange="savePreferences()"></div>
+  <div class="setting-row"><label for="prefCompact">Compact dashboard layout</label><input id="prefCompact" type="checkbox" onchange="savePreferences()"></div>
+  <div class="setting-row"><label for="prefHighContrast">High contrast mode</label><input id="prefHighContrast" type="checkbox" checked onchange="savePreferences()"></div>
+  <button onclick="savePreferences()">SAVE PREFERENCES</button>
+ </div>
+ <div class="panel"><h2>Local Data Tools</h2><p>Export a JSON backup before moving devices or clearing browser data.</p><button onclick="exportJarvisData()">EXPORT BACKUP</button><button onclick="importJarvisData()">IMPORT BACKUP</button><button onclick="refreshStorageStatus()">CHECK STORAGE</button></div>
+ <div class="panel"><h2>Assistant Status</h2><p>Local assistant features: Daily briefing and dashboard summaries.</p><p>Gemini / remote AI: Not connected.</p><p>Your data stays in this browser unless you export it.</p></div>
+</section>
 <section id="notifications" class="page"><div class="panel"><h2>Notification History</h2><p class="muted">Recent, read and dismissed notifications.</p><div id="notificationHistory">No notification history yet.</div></div>
  <div class="panel"><h2>Notification Settings</h2>
   <div class="setting-row"><label for="alertsEnabled">All automatic notifications</label><input id="alertsEnabled" type="checkbox" checked onchange="updateNotificationSettings()"></div>
@@ -73,7 +94,7 @@ input,textarea{font-family:Arial,sans-serif;font-size:16px}.notification-panel{d
   <p class="muted">Alerts are created while this dashboard is open. The Kindle browser cannot run this page in the background when it is closed.</p>
  </div></section>
 </main>
-<footer><strong>J.A.R.V.I.S. BUILD 0.6.2</strong><p>Personal dashboard · Local device storage</p><p>AI services remain disconnected.</p></footer>
+<footer><strong>J.A.R.V.I.S. BUILD 0.7</strong><p>Personal dashboard · Local device storage</p><p>AI services remain disconnected.</p></footer>
 <script>
 function getData(k,f){try{var v=localStorage.getItem(k);return v===null?f:JSON.parse(v)}catch(e){return f}}
 function saveData(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){console.log("Could not save "+k)}}
@@ -137,7 +158,7 @@ function checkAutomaticNotifications(){
 }
 
 function updateClock(){var n=new Date(),c=document.getElementById("clock"),d=document.getElementById("dateDisplay"),g=document.getElementById("greeting");if(c)c.textContent=n.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});if(d)d.textContent=n.toLocaleDateString([],{weekday:"long",day:"numeric",month:"long",year:"numeric"});if(g)g.textContent=n.getHours()<12?"Good morning. Ready for the day?":n.getHours()<18?"Good afternoon. What needs doing?":"Good evening. Let's get organised"}
-function openPage(name){var p=document.querySelectorAll(".page");p.forEach(function(x){x.classList.remove("active")});var target=document.getElementById(name);if(target)target.classList.add("active");var panel=document.getElementById("notificationPanel");if(panel)panel.classList.remove("open");if(name==="games")renderPuzzle();if(name==="revision")renderCard();if(name==="school")renderLessons();if(name==="notes")renderNotes();if(name==="reminders")renderReminders();if(name==="notifications"){renderNotificationHistory();loadNotificationSettings()}}
+function openPage(name){var p=document.querySelectorAll(".page");p.forEach(function(x){x.classList.remove("active")});var target=document.getElementById(name);if(target)target.classList.add("active");var panel=document.getElementById("notificationPanel");if(panel)panel.classList.remove("open");if(name==="games")renderPuzzle();if(name==="revision")renderCard();if(name==="school")renderLessons();if(name==="notes")renderNotes();if(name==="reminders")renderReminders();if(name==="notifications"){renderNotificationHistory();loadNotificationSettings()}if(name==="settings"){loadPreferences();refreshStorageStatus()}}
 function logActivity(msg){jarvisActivityLog.unshift({message:msg,time:new Date().toLocaleString()});if(jarvisActivityLog.length>50)jarvisActivityLog.length=50;saveData("jarvisActivityLog",jarvisActivityLog);renderActivityLog()}
 function renderActivityLog(){var a=document.getElementById("activityLog");if(!a)return;a.innerHTML="";if(!jarvisActivityLog.length){a.textContent="No recent activity.";return}jarvisActivityLog.forEach(function(x){var d=document.createElement("div"),m=document.createElement("div"),t=document.createElement("div");m.textContent=x.message;t.className="muted";t.textContent=x.time;d.appendChild(m);d.appendChild(t);a.appendChild(d)})}
 function clearActivityLog(){if(!confirm("Clear your activity history?"))return;jarvisActivityLog=[];saveData("jarvisActivityLog",jarvisActivityLog);renderActivityLog()}
@@ -162,7 +183,78 @@ function submitGuess(){if(puzzleFinished){alert("Start a new game first!");retur
 function showCachedWeather(){if(jarvisWeather)document.getElementById("weatherDisplay").textContent=jarvisWeather}
 function getWeather(){var city=prompt("Enter your town or city:");if(!city||!city.trim())return;var area=document.getElementById("weatherDisplay");area.textContent="Loading weather for "+city+"...";var geo=new XMLHttpRequest();geo.open("GET","https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(city.trim())+"&count=1&language=en&format=json",true);geo.onreadystatechange=function(){if(geo.readyState!==4)return;if(geo.status!==200){area.textContent="Could not retrieve the location.";return}try{var r=JSON.parse(geo.responseText);if(!r.results||!r.results.length){area.textContent="Location not found. Try another city.";return}loadWeather(r.results[0].latitude,r.results[0].longitude,r.results[0].name)}catch(e){area.textContent="Weather data could not be read."}};geo.send()}
 function loadWeather(lat,lon,city){var x=new XMLHttpRequest();x.open("GET","https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m",true);x.onreadystatechange=function(){if(x.readyState!==4)return;var a=document.getElementById("weatherDisplay");if(x.status!==200){a.textContent="Weather service unavailable.";return}try{var c=JSON.parse(x.responseText).current;jarvisWeather=city+"\nTemperature: "+c.temperature_2m+"°C\nFeels like: "+c.apparent_temperature+"°C\nHumidity: "+c.relative_humidity_2m+"%\nWind: "+c.wind_speed_10m+" km/h";saveData("jarvisWeather",jarvisWeather);a.textContent=jarvisWeather}catch(e){a.textContent="Could not process weather data."}};x.send()}
-function initialiseJarvis(){updateClock();setInterval(updateClock,30000);renderActivityLog();renderLessons();renderCard();renderNotes();renderReminders();updateDashboard();showCachedWeather();newPuzzle();updateNotificationBadge();renderNotificationPanel();renderNotificationHistory();loadNotificationSettings();checkAutomaticNotifications();setInterval(checkAutomaticNotifications,30000)}
+
+// Build 0.6.3: locally generated daily briefing.
+var jarvisPreferences=getData("jarvisPreferences",{name:"",briefing:true,compact:false,highContrast:true});
+if(!jarvisPreferences||typeof jarvisPreferences!=="object")jarvisPreferences={name:"",briefing:true,compact:false,highContrast:true};
+function generateDailyBriefing(){
+ var box=document.getElementById("dailyBriefing");if(!box)return;box.innerHTML="";
+ var pending=jarvisTasks.filter(function(t){return t&&!t.done}).length;
+ var today=new Date(),date=today.getFullYear()+"-"+String(today.getMonth()+1).padStart(2,"0")+"-"+String(today.getDate()).padStart(2,"0");
+ var day=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][today.getDay()];
+ var due=jarvisReminders.filter(function(r){return r&&r.date===date});
+ var lessonsToday=jarvisLessons.filter(function(l){return l&&String(l.day||"").toLowerCase()===day.toLowerCase()});
+ var lines=["You have "+pending+" unfinished task(s).","There are "+lessonsToday.length+" lesson(s) scheduled for today.",due.length+" reminder(s) due today.",jarvisNotes.length+" saved note(s) and "+jarvisCards.length+" flashcard(s) available."];
+ if(jarvisPreferences.name)lines.unshift("Hello, "+jarvisPreferences.name+". Here is your daily overview.");
+ lines.forEach(function(line){var p=document.createElement("p");p.textContent=line;box.appendChild(p)});
+ var stamp=document.createElement("p");stamp.className="muted";stamp.textContent="Generated locally · "+today.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});box.appendChild(stamp);
+}
+function loadPreferences(){
+ var n=document.getElementById("prefGreeting"),b=document.getElementById("prefBriefing"),c=document.getElementById("prefCompact"),h=document.getElementById("prefHighContrast");
+ if(n)n.value=jarvisPreferences.name||"";if(b)b.checked=jarvisPreferences.briefing!==false;if(c)c.checked=!!jarvisPreferences.compact;if(h)h.checked=jarvisPreferences.highContrast!==false;applyPreferences();
+}
+function savePreferences(){
+ var n=document.getElementById("prefGreeting"),b=document.getElementById("prefBriefing"),c=document.getElementById("prefCompact"),h=document.getElementById("prefHighContrast");
+ jarvisPreferences={name:n?n.value.trim():"",briefing:b?b.checked:true,compact:c?c.checked:false,highContrast:h?h.checked:true};
+ saveData("jarvisPreferences",jarvisPreferences);applyPreferences();generateDailyBriefing();
+}
+function applyPreferences(){
+ document.body.classList.toggle("compact",!!jarvisPreferences.compact);
+ document.body.classList.toggle("high-contrast",jarvisPreferences.highContrast!==false);
+ var brief=document.getElementById("dailyBriefing");if(brief&&brief.parentNode)brief.parentNode.style.display=jarvisPreferences.briefing===false?"none":"";
+ var summary=document.getElementById("preferenceSummary");if(summary)summary.textContent="Greeting: "+(jarvisPreferences.name||"default")+" · Briefing "+(jarvisPreferences.briefing===false?"off":"on")+" · Compact "+(jarvisPreferences.compact?"on":"off");
+}
+
+// Build 0.6.5: local storage info and JSON backup/restore.
+function refreshStorageStatus(){
+ var out=document.getElementById("storageSummary");if(!out)return;
+ var keys=["jarvisLessons","jarvisCards","jarvisNotes","jarvisReminders","jarvisTasks","jarvisWeather","jarvisReviewSession","jarvisActivityLog","jarvisNotifications","jarvisNotificationSettings","jarvisNotificationEvents","jarvisPreferences"],bytes=0;
+ keys.forEach(function(k){try{var v=localStorage.getItem(k);if(v)bytes+=v.length*2}catch(e){}});
+ out.textContent="Local data keys checked: "+keys.length+" · Approx. storage used: "+(bytes/1024).toFixed(1)+" KB. Backup recommended before clearing browser storage.";
+}
+function exportJarvisData(){
+ var keys=["jarvisLessons","jarvisCards","jarvisNotes","jarvisReminders","jarvisTasks","jarvisWeather","jarvisReviewSession","jarvisActivityLog","jarvisNotifications","jarvisNotificationSettings","jarvisNotificationEvents","jarvisPreferences"],data={app:"JARVIS Kindle Dashboard",version:"0.7",exportedAt:new Date().toISOString(),data:{}};
+ keys.forEach(function(k){try{var v=localStorage.getItem(k);if(v!==null)data.data[k]=JSON.parse(v)}catch(e){}});
+ var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="jarvis-dashboard-backup.json";document.body.appendChild(a);a.click();document.body.removeChild(a);setTimeout(function(){URL.revokeObjectURL(url)},1000);
+ logActivity("Dashboard backup exported");
+}
+function importJarvisData(){var i=document.getElementById("backupImportInput");if(i)i.click()}
+function handleBackupImport(event){
+ var file=event&&event.target&&event.target.files?event.target.files[0]:null;if(!file)return;
+ var reader=new FileReader();reader.onload=function(){try{
+  var parsed=JSON.parse(reader.result);if(!parsed||!parsed.data||typeof parsed.data!=="object")throw new Error("Invalid backup");
+  if(!confirm("Import this backup? Existing data for matching keys will be replaced."))return;
+  Object.keys(parsed.data).forEach(function(k){if(k.indexOf("jarvis")===0)saveData(k,parsed.data[k])});
+  alert("Backup imported. Reloading dashboard.");location.reload();
+ }catch(e){alert("Could not import backup. Please choose a valid JARVIS JSON backup.")}};
+ reader.readAsText(file);event.target.value="";
+}
+
+// Build 0.7: defensive button repair, preserving existing inline handlers.
+function repairButtonHandlers(){
+ var buttons=document.querySelectorAll("button[onclick]");
+ for(var i=0;i<buttons.length;i++){
+  var b=buttons[i];if(b.getAttribute("data-jarvis-bound")==="1")continue;
+  b.setAttribute("data-jarvis-bound","1");
+  b.addEventListener("click",function(){
+   var code=this.getAttribute("onclick");if(!code)return;
+   try{(new Function(code)).call(this)}catch(err){console.log("Button error:",err);alert("Button error. Please reload the dashboard and report which button failed.")};
+  });
+ }
+}
+
+function initialiseJarvis(){updateClock();setInterval(updateClock,30000);renderActivityLog();renderLessons();renderCard();renderNotes();renderReminders();updateDashboard();showCachedWeather();newPuzzle();updateNotificationBadge();renderNotificationPanel();renderNotificationHistory();loadNotificationSettings();loadPreferences();generateDailyBriefing();refreshStorageStatus();repairButtonHandlers();checkAutomaticNotifications();setInterval(checkAutomaticNotifications,30000)}
 window.onload=initialiseJarvis;
 </script>
 </body>
