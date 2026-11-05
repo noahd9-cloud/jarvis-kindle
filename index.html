@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,1055 +5,165 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>J.A.R.V.I.S. | Kindle</title>
 <style>
-* { box-sizing: border-box; }
-body {
-  background: white;
-  color: black;
-  font-family: Arial, sans-serif;
-  margin: 0 auto;
-  padding: 14px;
-  max-width: 760px;
-}
-header {
-  border-bottom: 3px solid black;
-  padding-bottom: 12px;
-}
-.topline {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: bold;
-}
-h1 { font-size: 27px; margin: 14px 0 5px; }
-h2 { font-size: 19px; margin: 0 0 10px; }
-h3 { font-size: 16px; margin: 12px 0 6px; }
-p { line-height: 1.4; }
-.panel {
-  border: 2px solid black;
-  padding: 13px;
-  margin-top: 14px;
-}
-.panelhead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-}
-.kicker {
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-}
-button {
-  background: white;
-  color: black;
-  border: 2px solid black;
-  padding: 13px 8px;
-  min-height: 48px;
-  font-size: 15px;
-  font-weight: bold;
-  width: 100%;
-}
-button:active { background: black; color: white; }
-.symbol {
-  display: block;
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-.muted { font-size: 13px; }
-.page { display: none; }
-.page.active { display: block; }
-.back { margin-top: 14px; }
-.clock { font-size: 25px; font-weight: bold; }
-footer {
-  border-top: 2px solid black;
-  margin-top: 20px;
-  padding-top: 10px;
-  font-size: 12px;
-}
+*{box-sizing:border-box}body{background:#fff;color:#000;font-family:Arial,sans-serif;margin:0 auto;padding:14px;max-width:760px}
+header{border-bottom:3px solid;padding-bottom:12px}.topline,.panelhead{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.topline{font-size:12px;font-weight:bold}h1{font-size:27px;margin:14px 0 5px}h2{font-size:19px;margin:0 0 10px}h3{font-size:16px;margin:12px 0 6px}p{line-height:1.4}
+.panel{border:2px solid;padding:13px;margin-top:14px}.kicker{font-size:11px;font-weight:bold;letter-spacing:1px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+button{background:#fff;color:#000;border:2px solid;padding:13px 8px;min-height:48px;font-size:15px;font-weight:bold;width:100%}button:active{background:#000;color:#fff}
+.muted{font-size:13px}.page{display:none}.page.active{display:block}.clock{font-size:25px;font-weight:bold}footer{border-top:2px solid;margin-top:20px;padding-top:10px;font-size:12px}
+input,textarea{font-family:Arial,sans-serif;font-size:16px}.notification-panel{display:none;position:fixed;top:10px;right:10px;width:calc(100% - 20px);max-width:360px;max-height:80vh;overflow-y:auto;background:white;border:3px solid;padding:14px;z-index:1000}.notification-panel.open{display:block}
+.notification-item{border-bottom:1px solid;padding:10px 0}.notification-item.unread{border-left:4px solid;padding-left:8px}.notification-item p{margin:5px 0}
+.notification-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.notification-actions button{font-size:12px;padding:9px 5px}
+.setting-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #aaa}.setting-row input{width:22px;height:22px}
+@media(max-width:420px){body{padding:10px}.grid{gap:7px}button{font-size:13px;padding:11px 5px}}
 </style>
 </head>
 <body>
-
 <header>
-  <div class="topline">
-    <span>J.A.R.V.I.S. SYSTEM</span>
-    <span>BUILD 0.5</span>
-  </div>
-  <h1>Good to see you.</h1>
-  <p id="dateDisplay" class="muted">Loading date...</p>
+ <div class="topline"><span>J.A.R.V.I.S. SYSTEM</span><span>BUILD 0.6.2</span></div>
+ <h1>Good to see you.</h1><p id="dateDisplay" class="muted">Loading date...</p>
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
   <div id="clock" class="clock">--:--</div>
-  <p id="greeting">Your personal dashboard.</p>
+  <button onclick="toggleNotificationPanel()" style="width:auto;min-width:65px;padding:9px">🔔 <span id="notificationBadge">0</span></button>
+ </div><p id="greeting">Your personal dashboard.</p>
 </header>
-
+<div id="notificationPanel" class="notification-panel">
+ <div class="panelhead"><h2>Notifications</h2><button onclick="toggleNotificationPanel()" style="width:auto;padding:8px 12px">CLOSE</button></div>
+ <div id="notificationPanelList">No notifications yet.</div>
+ <button onclick="openPage('notifications')" style="margin-top:10px">VIEW ALL NOTIFICATIONS</button>
+</div>
 <nav class="grid" style="margin-top:14px">
-  <button onclick="openPage('home')">⌂ HOME</button>
-  <button onclick="openPage('assistant')">✦ ASSISTANT</button>
-  <button onclick="openPage('school')">▤ SCHOOL</button>
-  <button onclick="openPage('revision')">▣ REVISION</button>
-  <button onclick="openPage('notes')">✎ NOTES</button>
-  <button onclick="openPage('games')">◇ GAMES</button>
-  <button onclick="openPage('reminders')">◷ REMINDERS</button>
+ <button onclick="openPage('home')">⌂ HOME</button><button onclick="openPage('assistant')">✦ ASSISTANT</button>
+ <button onclick="openPage('school')">▤ SCHOOL</button><button onclick="openPage('revision')">▣ REVISION</button>
+ <button onclick="openPage('notes')">✎ NOTES</button><button onclick="openPage('games')">◇ GAMES</button>
+ <button onclick="openPage('reminders')">◷ REMINDERS</button><button onclick="openPage('notifications')">🔔 NOTIFICATIONS</button>
 </nav>
-
 <main>
 <section id="home" class="page active">
-  <div class="panel">
-    <div class="panelhead">
-      <h2>System Overview</h2>
-      <span class="kicker">BUILD 0.5</span>
-    </div>
-    <p>Welcome to your personal J.A.R.V.I.S. dashboard.</p>
-    <div class="grid">
-      <div>
-        <span class="kicker">SYSTEM</span>
-        <h3>ONLINE</h3>
-      </div>
-      <div>
-        <span class="kicker">AI CONNECTION</span>
-        <h3>STANDBY</h3>
-      </div>
-      <div>
-        <span class="kicker">TASKS</span>
-        <h3 id="taskCount">0</h3>
-      </div>
-      <div>
-        <span class="kicker">REMINDERS</span>
-        <h3 id="reminderCount">0</h3>
-      </div>
-    </div>
+ <div class="panel"><div class="panelhead"><h2>System Overview</h2><span class="kicker">BUILD 0.6.2</span></div>
+  <p>Welcome to your personal J.A.R.V.I.S. dashboard.</p><div class="grid">
+   <div><span class="kicker">SYSTEM</span><h3>ONLINE</h3></div><div><span class="kicker">AI CONNECTION</span><h3>STANDBY</h3></div>
+   <div><span class="kicker">TASKS</span><h3 id="taskCount">0</h3></div><div><span class="kicker">REMINDERS</span><h3 id="reminderCount">0</h3></div>
   </div>
-
-<div class="panel">
-  <h2>Recent Activity</h2>
-  <div id="activityLog">No recent activity.</div>
-  <button onclick="clearActivityLog()" style="margin-top:10px">
-    CLEAR ACTIVITY
-  </button>
-</div>
-
-  <div class="panel">
-    <h2>Today's Schedule</h2>
-    <div id="homeLessons">No lessons added yet.</div>
-    <button onclick="openPage('school')">OPEN TIMETABLE</button>
-  </div>
-
-  <div class="panel">
-    <h2>Daily Tasks</h2>
-    <div id="homeTasks"></div>
-    <div id="taskList"></div>
-    <input id="taskInput" type="text" placeholder="Add a task..."
-      style="width:100%;padding:12px;margin:8px 0;font-size:16px">
-    <button onclick="addTask()">ADD TASK</button>
-  </div>
-
-  <div class="panel">
-    <h2>Weather</h2>
-    <div id="weatherDisplay">Weather information not loaded.</div>
-    <button onclick="getWeather()">REFRESH WEATHER</button>
-  </div>
-
-  <div class="panel">
-    <h2>Quick Notes</h2>
-    <div id="homeNotes">No notes yet.</div>
-    <button onclick="openPage('notes')">OPEN NOTES</button>
-  </div>
-
-  <div class="panel">
-    <h2>GCSE Revision</h2>
-    <div id="homeRevision">No revision cards yet.</div>
-    <button onclick="openPage('revision')">START REVISION</button>
-  </div>
-
-  <div class="panel">
-    <h2>Upcoming Reminders</h2>
-    <div id="homeReminders">No reminders yet.</div>
-    <button onclick="openPage('reminders')">VIEW REMINDERS</button>
-  </div>
-
-  <div class="panel">
-    <h2>Quick Access</h2>
-    <div class="grid">
-      <button onclick="openPage('school')">TIMETABLE</button>
-      <button onclick="openPage('revision')">FLASHCARDS</button>
-      <button onclick="openPage('notes')">MY NOTES</button>
-      <button onclick="openPage('reminders')">REMINDERS</button>
-    </div>
-  </div>
-
-  <div class="panel">
-    <h2>System Status</h2>
-    <p>Dashboard: <strong>ONLINE</strong></p>
-    <p>Storage: <strong>LOCAL DEVICE</strong></p>
-    <p>AI Backend: <strong>NOT CONNECTED</strong></p>
-  </div>
+ </div>
+ <div class="panel"><h2>Recent Activity</h2><div id="activityLog">No recent activity.</div><button onclick="clearActivityLog()" style="margin-top:10px">CLEAR ACTIVITY</button></div>
+ <div class="panel"><h2>Today's Schedule</h2><div id="homeLessons">No lessons added yet.</div><button onclick="openPage('school')">OPEN TIMETABLE</button></div>
+ <div class="panel"><h2>Daily Tasks</h2><div id="homeTasks"></div><div id="taskList"></div><input id="taskInput" placeholder="Add a task..." style="width:100%;padding:12px;margin:8px 0"><button onclick="addTask()">ADD TASK</button></div>
+ <div class="panel"><h2>Weather</h2><div id="weatherDisplay">Weather information not loaded.</div><button onclick="getWeather()">REFRESH WEATHER</button></div>
+ <div class="panel"><h2>Quick Notes</h2><div id="homeNotes">No notes yet.</div><button onclick="openPage('notes')">OPEN NOTES</button></div>
+ <div class="panel"><h2>GCSE Revision</h2><div id="homeRevision">No revision cards yet.</div><button onclick="openPage('revision')">START REVISION</button></div>
+ <div class="panel"><h2>Upcoming Reminders</h2><div id="homeReminders">No reminders yet.</div><button onclick="openPage('reminders')">VIEW REMINDERS</button></div>
+ <div class="panel"><h2>Quick Access</h2><div class="grid"><button onclick="openPage('school')">TIMETABLE</button><button onclick="openPage('revision')">FLASHCARDS</button><button onclick="openPage('notes')">MY NOTES</button><button onclick="openPage('reminders')">REMINDERS</button></div></div>
+ <div class="panel"><h2>System Status</h2><p>Dashboard: <strong>ONLINE</strong></p><p>Storage: <strong>LOCAL DEVICE</strong></p><p>AI Backend: <strong>NOT CONNECTED</strong></p><p>Automatic alerts: <strong id="alertStatus">ENABLED</strong></p></div>
 </section>
+<section id="assistant" class="page"><div class="panel"><h2>J.A.R.V.I.S. Assistant</h2><p>Personal assistant interface.</p><p><strong>AI CONNECTION: STANDBY</strong></p><p>The secure AI backend has not been configured yet.</p><input disabled placeholder="AI backend unavailable" style="width:100%;padding:12px"><button disabled>SEND</button></div></section>
+<section id="school" class="page"><div class="panel"><h2>School Timetable</h2><div id="lessonList">No lessons added yet.</div><h3>Add a lesson</h3>
+ <input id="lessonSubject" placeholder="Subject" style="width:100%;padding:12px;margin:5px 0"><input id="lessonTime" placeholder="Time (e.g. 09:00)" style="width:100%;padding:12px;margin:5px 0"><input id="lessonDay" placeholder="Day (e.g. Monday)" style="width:100%;padding:12px;margin:5px 0"><button onclick="addLesson()">ADD LESSON</button></div></section>
+<section id="revision" class="page"><div class="panel"><h2>GCSE Revision</h2><div id="cardDisplay">No flashcards yet.</div><div class="grid"><button onclick="showAnswer()">SHOW ANSWER</button><button onclick="markReviewed()">MARK REVIEWED</button></div><button onclick="nextCard()">NEXT CARD</button></div>
+ <div class="panel"><h2>Add a Flashcard</h2><input id="cardSubject" placeholder="Subject" style="width:100%;padding:12px;margin:5px 0"><textarea id="cardQuestion" placeholder="Question" style="width:100%;padding:12px;margin:5px 0"></textarea><textarea id="cardAnswer" placeholder="Answer" style="width:100%;padding:12px;margin:5px 0"></textarea><button onclick="addCard()">ADD FLASHCARD</button></div></section>
+<section id="notes" class="page"><div class="panel"><h2>My Notes</h2><div id="notesList">No notes saved yet.</div></div><div class="panel"><h2>Create a Note</h2><input id="noteTitle" placeholder="Note title" style="width:100%;padding:12px;margin:5px 0"><textarea id="noteContent" placeholder="Write your note..." style="width:100%;padding:12px;margin:5px 0;min-height:120px"></textarea><button onclick="saveNote()">SAVE NOTE</button></div></section>
+<section id="games" class="page"><div class="panel"><h2>Number Challenge</h2><p>I'm thinking of a number between 1 and 20.</p><p id="puzzleMessage">Can you guess it?</p><input id="puzzleGuess" type="number" min="1" max="20" placeholder="Your guess" style="width:100%;padding:14px;margin:8px 0"><button onclick="submitGuess()">SUBMIT GUESS</button><button onclick="newPuzzle()" style="margin-top:8px">NEW GAME</button><p id="puzzleAttempts">Attempts: 0</p></div></section>
+<section id="reminders" class="page"><div class="panel"><h2>My Reminders</h2><div id="reminderList">No reminders yet.</div></div><div class="panel"><h2>Add a Reminder</h2><input id="reminderText" placeholder="Reminder" style="width:100%;padding:12px;margin:5px 0"><input id="reminderDate" type="date" style="width:100%;padding:12px;margin:5px 0"><button onclick="addReminder()">ADD REMINDER</button></div></section>
+<section id="notifications" class="page"><div class="panel"><h2>Notification History</h2><p class="muted">Recent, read and dismissed notifications.</p><div id="notificationHistory">No notification history yet.</div></div>
+ <div class="panel"><h2>Notification Settings</h2>
+  <div class="setting-row"><label for="alertsEnabled">All automatic notifications</label><input id="alertsEnabled" type="checkbox" checked onchange="updateNotificationSettings()"></div>
+  <div class="setting-row"><label for="lessonAlerts">Lesson alerts (10 minutes before)</label><input id="lessonAlerts" type="checkbox" checked onchange="updateNotificationSettings()"></div>
+  <div class="setting-row"><label for="taskAlerts">Unfinished task alert (9:00 AM)</label><input id="taskAlerts" type="checkbox" checked onchange="updateNotificationSettings()"></div>
+  <div class="setting-row"><label for="reminderAlerts">Reminder alerts (9:00 AM)</label><input id="reminderAlerts" type="checkbox" checked onchange="updateNotificationSettings()"></div>
+  <p class="muted">Alerts are created while this dashboard is open. The Kindle browser cannot run this page in the background when it is closed.</p>
+ </div></section>
 </main>
-
-<section id="assistant" class="page">
-  <div class="panel">
-    <h2>J.A.R.V.I.S. Assistant</h2>
-    <p>Personal assistant interface.</p>
-    <p><strong>AI CONNECTION: STANDBY</strong></p>
-    <p>The secure AI backend has not been configured yet.</p>
-    <input type="text" placeholder="AI backend unavailable"
-      disabled style="width:100%;padding:12px">
-    <button disabled> SEND </button>
-  </div>
-</section>
-
-<section id="school" class="page">
-  <div class="panel">
-    <h2>School Timetable</h2>
-    <div id="lessonList">No lessons added yet.</div>
-    <h3>Add a lesson</h3>
-    <input id="lessonSubject" placeholder="Subject"
-      style="width:100%;padding:12px;margin:5px 0">
-    <input id="lessonTime" placeholder="Time (e.g. 09:00)"
-      style="width:100%;padding:12px;margin:5px 0">
-    <input id="lessonDay" placeholder="Day (e.g. Monday)"
-      style="width:100%;padding:12px;margin:5px 0">
-    <button onclick="addLesson()">ADD LESSON</button>
-  </div>
-</section>
-
-<section id="revision" class="page">
-  <div class="panel">
-    <h2>GCSE Revision</h2>
-    <div id="cardDisplay">No flashcards yet.</div>
-    <div class="grid">
-      <button onclick="showAnswer()">SHOW ANSWER</button>
-      <button onclick="markReviewed()">MARK REVIEWED</button>
-    </div>
-    <button onclick="nextCard()">NEXT CARD</button>
-  </div>
-  <div class="panel">
-    <h2>Add a Flashcard</h2>
-    <input id="cardSubject" placeholder="Subject"
-      style="width:100%;padding:12px;margin:5px 0">
-    <textarea id="cardQuestion" placeholder="Question"
-      style="width:100%;padding:12px;margin:5px 0"></textarea>
-    <textarea id="cardAnswer" placeholder="Answer"
-      style="width:100%;padding:12px;margin:5px 0"></textarea>
-    <button onclick="addCard()">ADD FLASHCARD</button>
-  </div>
-</section>
-
-<section id="notes" class="page">
-  <div class="panel">
-    <h2>My Notes</h2>
-    <div id="notesList">No notes saved yet.</div>
-  </div>
-  <div class="panel">
-    <h2>Create a Note</h2>
-    <input id="noteTitle" placeholder="Note title"
-      style="width:100%;padding:12px;margin:5px 0">
-    <textarea id="noteContent" placeholder="Write your note..."
-      style="width:100%;padding:12px;margin:5px 0;min-height:120px"></textarea>
-    <button onclick="saveNote()">SAVE NOTE</button>
-  </div>
-</section>
-
-<section id="games" class="page">
-  <div class="panel">
-    <h2>Number Challenge</h2>
-    <p>I'm thinking of a number between 1 and 20.</p>
-    <p id="puzzleMessage">Can you guess it?</p>
-    <input id="puzzleGuess" type="number" min="1" max="20"
-      placeholder="Your guess"
-      style="width:100%;padding:14px;margin:8px 0;font-size:18px">
-    <button onclick="submitGuess()">SUBMIT GUESS</button>
-    <button onclick="newPuzzle()" style="margin-top:8px">NEW GAME</button>
-    <p id="puzzleAttempts">Attempts: 0</p>
-  </div>
-</section>
-
-<section id="reminders" class="page">
-  <div class="panel">
-    <h2>My Reminders</h2>
-    <div id="reminderList">No reminders yet.</div>
-  </div>
-  <div class="panel">
-    <h2>Add a Reminder</h2>
-    <input id="reminderText" placeholder="Reminder"
-      style="width:100%;padding:12px;margin:5px 0">
-    <input id="reminderDate" type="date"
-      style="width:100%;padding:12px;margin:5px 0">
-    <button onclick="addReminder()">ADD REMINDER</button>
-  </div>
-</section>
-
-</main>
-
-<footer>
-  <strong>J.A.R.V.I.S. BUILD 0.5</strong>
-  <p>Personal dashboard · Local device storage</p>
-  <p>AI services remain disconnected.</p>
-</footer>
-
+<footer><strong>J.A.R.V.I.S. BUILD 0.6.2</strong><p>Personal dashboard · Local device storage</p><p>AI services remain disconnected.</p></footer>
 <script>
-// J.A.R.V.I.S. BUILD 0.5
+function getData(k,f){try{var v=localStorage.getItem(k);return v===null?f:JSON.parse(v)}catch(e){return f}}
+function saveData(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){console.log("Could not save "+k)}}
+var jarvisLessons=getData("jarvisLessons",[]),jarvisCards=getData("jarvisCards",[]),jarvisNotes=getData("jarvisNotes",[]),jarvisReminders=getData("jarvisReminders",[]),jarvisTasks=getData("jarvisTasks",[]),jarvisWeather=getData("jarvisWeather",null),jarvisReviewSession=getData("jarvisReviewSession",0),jarvisActivityLog=getData("jarvisActivityLog",[]);
+var jarvisNotifications=getData("jarvisNotifications",[]),jarvisNotificationSettings=getData("jarvisNotificationSettings",{enabled:true,lessonAlerts:true,taskAlerts:true,reminderAlerts:true}),jarvisNotificationEvents=getData("jarvisNotificationEvents",[]);
+if(!Array.isArray(jarvisNotifications))jarvisNotifications=[];if(!Array.isArray(jarvisNotificationEvents))jarvisNotificationEvents=[];
+if(!jarvisNotificationSettings||typeof jarvisNotificationSettings!=="object")jarvisNotificationSettings={enabled:true,lessonAlerts:true,taskAlerts:true,reminderAlerts:true};
+var currentCard=0,answerVisible=false,puzzleNumber=0,puzzleAttempts=0,puzzleFinished=false;
 
-function getData(key, fallback) {
-  try {
-    var saved = localStorage.getItem(key);
-    return saved === null ? fallback : JSON.parse(saved);
-  } catch (error) {
-    return fallback;
-  }
+function saveNotifications(){saveData("jarvisNotifications",jarvisNotifications)}
+function unreadCount(){return jarvisNotifications.filter(function(n){return !n.read&&!n.dismissed}).length}
+function updateNotificationBadge(){var b=document.getElementById("notificationBadge");if(b){var n=unreadCount();b.textContent=n>99?"99+":n}}
+function addNotification(title,message,type,eventKey){
+ if(eventKey&&jarvisNotificationEvents.indexOf(eventKey)!==-1)return;
+ jarvisNotifications.unshift({id:Date.now()+"-"+Math.floor(Math.random()*10000),title:title,message:message,type:type||"general",createdAt:new Date().toLocaleString(),read:false,dismissed:false});
+ if(jarvisNotifications.length>100)jarvisNotifications.length=100;
+ if(eventKey){jarvisNotificationEvents.push(eventKey);if(jarvisNotificationEvents.length>300)jarvisNotificationEvents=jarvisNotificationEvents.slice(-300);saveData("jarvisNotificationEvents",jarvisNotificationEvents)}
+ saveNotifications();updateNotificationBadge();renderNotificationPanel();renderNotificationHistory();
+}
+function markNotificationRead(id){var n=jarvisNotifications.find(function(x){return x.id===id});if(n)n.read=true;saveNotifications();updateNotificationBadge()}
+function dismissNotification(id){var n=jarvisNotifications.find(function(x){return x.id===id});if(n){n.dismissed=true;n.read=true}saveNotifications();updateNotificationBadge()}
+function toggleNotificationPanel(){var p=document.getElementById("notificationPanel");if(p)p.classList.toggle("open");renderNotificationPanel()}
+function renderNotificationPanel(){
+ var area=document.getElementById("notificationPanelList");if(!area)return;area.innerHTML="";
+ var active=jarvisNotifications.filter(function(n){return !n.dismissed});
+ if(!active.length){area.textContent="No new notifications.";updateNotificationBadge();return}
+ active.forEach(function(n){
+  var item=document.createElement("div");item.className="notification-item"+(n.read?"":" unread");
+  var title=document.createElement("strong");title.textContent=n.title;var msg=document.createElement("p");msg.textContent=n.message;var time=document.createElement("p");time.className="muted";time.textContent=n.createdAt;
+  var actions=document.createElement("div");actions.className="notification-actions";
+  var read=document.createElement("button");read.textContent=n.read?"READ":"MARK READ";read.onclick=function(){markNotificationRead(n.id);renderNotificationPanel();renderNotificationHistory()};
+  var dismiss=document.createElement("button");dismiss.textContent="DISMISS";dismiss.onclick=function(){dismissNotification(n.id);renderNotificationPanel();renderNotificationHistory()};
+  actions.appendChild(read);actions.appendChild(dismiss);item.appendChild(title);item.appendChild(msg);item.appendChild(time);item.appendChild(actions);area.appendChild(item);
+ });updateNotificationBadge();
+}
+function renderNotificationHistory(){
+ var area=document.getElementById("notificationHistory");if(!area)return;area.innerHTML="";
+ if(!jarvisNotifications.length){area.textContent="No notification history yet.";return}
+ jarvisNotifications.forEach(function(n){var item=document.createElement("div");item.className="notification-item";var title=document.createElement("strong");title.textContent=n.title;var msg=document.createElement("p");msg.textContent=n.message;var status=document.createElement("p");status.className="muted";status.textContent=n.createdAt+" · "+(n.dismissed?"Dismissed":n.read?"Read":"Unread");item.appendChild(title);item.appendChild(msg);item.appendChild(status);area.appendChild(item)});
+}
+function updateNotificationSettings(){
+ jarvisNotificationSettings={enabled:document.getElementById("alertsEnabled").checked,lessonAlerts:document.getElementById("lessonAlerts").checked,taskAlerts:document.getElementById("taskAlerts").checked,reminderAlerts:document.getElementById("reminderAlerts").checked};
+ saveData("jarvisNotificationSettings",jarvisNotificationSettings);var s=document.getElementById("alertStatus");if(s)s.textContent=jarvisNotificationSettings.enabled?"ENABLED":"DISABLED";
+}
+function loadNotificationSettings(){
+ document.getElementById("alertsEnabled").checked=jarvisNotificationSettings.enabled!==false;document.getElementById("lessonAlerts").checked=jarvisNotificationSettings.lessonAlerts!==false;document.getElementById("taskAlerts").checked=jarvisNotificationSettings.taskAlerts!==false;document.getElementById("reminderAlerts").checked=jarvisNotificationSettings.reminderAlerts!==false;
+ var s=document.getElementById("alertStatus");if(s)s.textContent=jarvisNotificationSettings.enabled===false?"DISABLED":"ENABLED";
 }
 
-function saveData(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch (error) {
-    console.log("Could not save " + key);
-  }
+// Automatic alerts: checked on startup and every 30 seconds while the page remains open.
+function checkAutomaticNotifications(){
+ if(jarvisNotificationSettings.enabled===false)return;
+ var now=new Date(),today=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0"),day=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][now.getDay()],mins=now.getHours()*60+now.getMinutes();
+ if(jarvisNotificationSettings.lessonAlerts!==false)jarvisLessons.forEach(function(l){
+  if(!l||!l.time||!l.day||String(l.day).trim().toLowerCase()!==day.toLowerCase())return;
+  var m=String(l.time).match(/^(\d{1,2}):(\d{2})$/);if(!m)return;var until=parseInt(m[1],10)*60+parseInt(m[2],10)-mins;
+  if(until>=0&&until<=10)addNotification("Upcoming lesson",l.subject+" starts in "+until+" minute(s).","lesson","lesson|"+today+"|"+l.day+"|"+l.time+"|"+l.subject);
+ });
+ if(jarvisNotificationSettings.reminderAlerts!==false&&mins>=540)jarvisReminders.forEach(function(r,i){if(r&&r.date===today)addNotification("Reminder for today",r.text,"reminder","reminder|"+today+"|"+i+"|"+r.text)});
+ if(jarvisNotificationSettings.taskAlerts!==false&&mins>=540){var left=jarvisTasks.filter(function(t){return !t.done}).length;if(left)addNotification("Daily task check","You have "+left+" unfinished task(s). Open your dashboard to review them.","task","tasks|"+today)}
 }
 
-function safeText(value) {
-  var element = document.createElement("span");
-  element.textContent = String(value);
-  return element.innerHTML;
-}
-
-// Existing storage keys are preserved.
-var jarvisLessons = getData("jarvisLessons", []);
-var jarvisCards = getData("jarvisCards", []);
-var jarvisNotes = getData("jarvisNotes", []);
-var jarvisReminders = getData("jarvisReminders", []);
-var jarvisTasks = getData("jarvisTasks", []);
-var jarvisWeather = getData("jarvisWeather", null);
-var jarvisReviewSession = getData("jarvisReviewSession", 0);
-var jarvisActivityLog = getData("jarvisActivityLog", []);
-
-var currentCard = 0;
-var answerVisible = false;
-var puzzleNumber = 0;
-var puzzleAttempts = 0;
-var puzzleFinished = false;
-
-function saveAllTasks() {
-  saveData("jarvisTasks", jarvisTasks);
-}
-
-function updateClock() {
-  var now = new Date();
-  var clock = document.getElementById("clock");
-  var date = document.getElementById("dateDisplay");
-  var greeting = document.getElementById("greeting");
-
-  if (clock) {
-    clock.textContent = now.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit"
-    });
-  }
-
-  if (date) {
-    date.textContent = now.toLocaleDateString([], {
-      weekday: "long",
-      day: "numeric",
-      month: "long",
-      year: "numeric"
-    });
-  }
-
-  if (greeting) {
-    var hour = now.getHours();
-    greeting.textContent = hour < 12
-      ? "Good morning. Ready for the day?"
-      : hour < 18
-        ? "Good afternoon. What needs doing?"
-        : "Good evening. Let's get organised.";
-  }
-}
-
-function openPage(pageName) {
-  var pages = document.querySelectorAll(".page");
-
-  for (var i = 0; i < pages.length; i++) {
-    pages[i].classList.remove("active");
-  }
-
-  var target = document.getElementById(pageName);
-  if (target) target.classList.add("active");
-
-  if (pageName === "games") renderPuzzle();
-  if (pageName === "revision") renderCard();
-  if (pageName === "school") renderLessons();
-  if (pageName === "notes") renderNotes();
-  if (pageName === "reminders") renderReminders();
-}
-
-function addTask() {
-  var input = document.getElementById("taskInput");
-  var value = input.value.trim();
-
-  if (!value) return;
-
-  jarvisTasks.push({
-    text: value,
-    done: false
-  });
-
-  saveAllTasks();
-  input.value = "";
-  logActivity("Task added: " + value);
-  renderTasks();
-  updateDashboard();
-}
-
-function toggleTask(index) {
-  if (!jarvisTasks[index]) return;
-
-  jarvisTasks[index].done = !jarvisTasks[index].done;
-  saveAllTasks();
-
-  logActivity(
-    (jarvisTasks[index].done ? "Task completed: " : "Task reopened: ") +
-    jarvisTasks[index].text
-  );
-
-  renderTasks();
-  updateDashboard();
-}
-
-function deleteTask(index) {
-  if (!jarvisTasks[index]) return;
-
-  var taskName = jarvisTasks[index].text;
-  jarvisTasks.splice(index, 1);
-  saveAllTasks();
-
-  logActivity("Task deleted: " + taskName);
-  renderTasks();
-  updateDashboard();
-}
-
-function renderTasks() {
-  var list = document.getElementById("taskList");
-  if (!list) return;
-
-  list.innerHTML = "";
-
-  if (jarvisTasks.length === 0) {
-    list.textContent = "No tasks added yet.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisTasks.length; i++) {
-    (function(index) {
-      var task = jarvisTasks[index];
-      var item = document.createElement("div");
-      item.style.padding = "9px 0";
-      item.style.borderBottom = "1px solid black";
-
-      var label = document.createElement("span");
-      label.textContent = (task.done ? "✓ " : "□ ") + task.text;
-      label.style.textDecoration = task.done ? "line-through" : "none";
-      label.style.display = "block";
-      label.style.marginBottom = "6px";
-
-      var toggle = document.createElement("button");
-      toggle.textContent = task.done ? "REOPEN" : "COMPLETE";
-      toggle.onclick = function() {
-        toggleTask(index);
-      };
-
-      var remove = document.createElement("button");
-      remove.textContent = "DELETE";
-      remove.style.marginTop = "5px";
-      remove.onclick = function() {
-        deleteTask(index);
-      };
-
-      item.appendChild(label);
-      item.appendChild(toggle);
-      item.appendChild(remove);
-      list.appendChild(item);
-    })(i);
-  }
-}
-
-function addLesson() {
-  var subject = document.getElementById("lessonSubject").value.trim();
-  var time = document.getElementById("lessonTime").value.trim();
-  var day = document.getElementById("lessonDay").value.trim();
-
-  if (!subject || !time || !day) {
-    alert("Please enter the subject, time and day.");
-    return;
-  }
-
-  jarvisLessons.push({
-    subject: subject,
-    time: time,
-    day: day
-  });
-
-  saveData("jarvisLessons", jarvisLessons);
-
-  document.getElementById("lessonSubject").value = "";
-  document.getElementById("lessonTime").value = "";
-  document.getElementById("lessonDay").value = "";
-
-  logActivity("Lesson added: " + subject);
-  renderLessons();
-  updateDashboard();
-}
-
-function renderLessons() {
-  var list = document.getElementById("lessonList");
-  if (!list) return;
-
-  list.innerHTML = "";
-
-  if (jarvisLessons.length === 0) {
-    list.textContent = "No lessons added yet.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisLessons.length; i++) {
-    var lesson = jarvisLessons[i];
-    var item = document.createElement("p");
-    item.textContent = lesson.day + " · " + lesson.time +
-      " · " + lesson.subject;
-    list.appendChild(item);
-  }
-}
-
-function renderHomeLessons() {
-  var area = document.getElementById("homeLessons");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisLessons.length === 0) {
-    area.textContent = "No lessons added yet.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisLessons.length; i++) {
-    var lesson = jarvisLessons[i];
-    var line = document.createElement("p");
-    line.textContent = lesson.day + " · " + lesson.time +
-      " · " + lesson.subject;
-    area.appendChild(line);
-  }
-}
-
-function updateDashboard() {
-  renderTasks();
-  renderHomeLessons();
-  renderHomeNotes();
-  renderHomeReminders();
-
-  var completed = 0;
-  for (var i = 0; i < jarvisTasks.length; i++) {
-    if (jarvisTasks[i].done) completed++;
-  }
-
-  document.getElementById("taskCount").textContent =
-    completed + "/" + jarvisTasks.length;
-
-  document.getElementById("reminderCount").textContent =
-    jarvisReminders.length;
-}
-
-// REVISION FLASHCARDS
-
-function addCard() {
-  var subject = document.getElementById("cardSubject").value.trim();
-  var question = document.getElementById("cardQuestion").value.trim();
-  var answer = document.getElementById("cardAnswer").value.trim();
-
-  if (!subject || !question || !answer) {
-    alert("Please complete all flashcard fields.");
-    return;
-  }
-
-  jarvisCards.push({
-    subject: subject,
-    question: question,
-    answer: answer
-  });
-
-  saveData("jarvisCards", jarvisCards);
-
-  document.getElementById("cardSubject").value = "";
-  document.getElementById("cardQuestion").value = "";
-  document.getElementById("cardAnswer").value = "";
-
-  logActivity("Flashcard added: " + subject);
-  currentCard = jarvisCards.length - 1;
-  renderCard();
-  updateDashboard();
-}
-
-function renderCard() {
-  var area = document.getElementById("cardDisplay");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisCards.length === 0) {
-    area.textContent = "No flashcards yet.";
-    return;
-  }
-
-  if (currentCard >= jarvisCards.length) currentCard = 0;
-
-  var card = jarvisCards[currentCard];
-
-  var subject = document.createElement("h3");
-  subject.textContent = card.subject;
-
-  var question = document.createElement("p");
-  question.textContent = card.question;
-
-  area.appendChild(subject);
-  area.appendChild(question);
-
-  if (answerVisible) {
-    var answer = document.createElement("p");
-    answer.textContent = "Answer: " + card.answer;
-    answer.style.borderTop = "1px solid black";
-    answer.style.paddingTop = "10px";
-    area.appendChild(answer);
-  }
-
-  var counter = document.createElement("p");
-  counter.className = "muted";
-  counter.textContent = "Card " + (currentCard + 1) +
-    " of " + jarvisCards.length;
-  area.appendChild(counter);
-}
-
-function showAnswer() {
-  answerVisible = true;
-  renderCard();
-}
-
-function nextCard() {
-  if (jarvisCards.length === 0) return;
-
-  currentCard = (currentCard + 1) % jarvisCards.length;
-  answerVisible = false;
-  renderCard();
-}
-
-function markReviewed() {
-  if (jarvisCards.length === 0) return;
-
-  jarvisReviewSession++;
-  saveData("jarvisReviewSession", jarvisReviewSession);
-
-  logActivity("Flashcard reviewed: " +
-    jarvisCards[currentCard].subject);
-
-  nextCard();
-}
-
-// NOTES
-
-function saveNote() {
-  var title = document.getElementById("noteTitle").value.trim();
-  var content = document.getElementById("noteContent").value.trim();
-
-  if (!title || !content) {
-    alert("Please enter a title and note.");
-    return;
-  }
-
-  jarvisNotes.push({
-    title: title,
-    content: content,
-    date: new Date().toLocaleDateString()
-  });
-
-  saveData("jarvisNotes", jarvisNotes);
-
-  document.getElementById("noteTitle").value = "";
-  document.getElementById("noteContent").value = "";
-
-  logActivity("Note saved: " + title);
-  renderNotes();
-  updateDashboard();
-}
-
-function renderNotes() {
-  var area = document.getElementById("notesList");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisNotes.length === 0) {
-    area.textContent = "No notes saved yet.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisNotes.length; i++) {
-    var note = jarvisNotes[i];
-    var item = document.createElement("div");
-    item.className = "panel";
-
-    var heading = document.createElement("h3");
-    heading.textContent = note.title;
-
-    var content = document.createElement("p");
-    content.textContent = note.content;
-
-    var date = document.createElement("p");
-    date.className = "muted";
-    date.textContent = note.date || "";
-
-    var remove = document.createElement("button");
-    remove.textContent = "DELETE NOTE";
-
-    (function(index) {
-      remove.onclick = function() {
-        var name = jarvisNotes[index].title;
-        jarvisNotes.splice(index, 1);
-        saveData("jarvisNotes", jarvisNotes);
-        logActivity("Note deleted: " + name);
-        renderNotes();
-        updateDashboard();
-      };
-    })(i);
-
-    item.appendChild(heading);
-    item.appendChild(content);
-    item.appendChild(date);
-    item.appendChild(remove);
-    area.appendChild(item);
-  }
-}
-
-function renderHomeNotes() {
-  var area = document.getElementById("homeNotes");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisNotes.length === 0) {
-    area.textContent = "No notes yet.";
-    return;
-  }
-
-  var count = document.createElement("p");
-  count.textContent = jarvisNotes.length + " saved note(s).";
-  area.appendChild(count);
-
-  var latest = jarvisNotes[jarvisNotes.length - 1];
-  var title = document.createElement("p");
-  title.textContent = "Latest: " + latest.title;
-  area.appendChild(title);
-}
-
-// REMINDERS
-
-function addReminder() {
-  var text = document.getElementById("reminderText").value.trim();
-  var date = document.getElementById("reminderDate").value;
-
-  if (!text || !date) {
-    alert("Please enter a reminder and date.");
-    return;
-  }
-
-  jarvisReminders.push({
-    text: text,
-    date: date
-  });
-
-  saveData("jarvisReminders", jarvisReminders);
-
-  document.getElementById("reminderText").value = "";
-  document.getElementById("reminderDate").value = "";
-
-  logActivity("Reminder added: " + text);
-  renderReminders();
-  updateDashboard();
-}
-
-function renderReminders() {
-  var area = document.getElementById("reminderList");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisReminders.length === 0) {
-    area.textContent = "No reminders yet.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisReminders.length; i++) {
-    (function(index) {
-      var reminder = jarvisReminders[index];
-      var item = document.createElement("div");
-      item.style.padding = "9px 0";
-
-      var label = document.createElement("p");
-      label.textContent = reminder.date + " · " + reminder.text;
-
-      var remove = document.createElement("button");
-      remove.textContent = "DELETE REMINDER";
-      remove.onclick = function() {
-        var name = jarvisReminders[index].text;
-        jarvisReminders.splice(index, 1);
-        saveData("jarvisReminders", jarvisReminders);
-        logActivity("Reminder deleted: " + name);
-        renderReminders();
-        updateDashboard();
-      };
-
-      item.appendChild(label);
-      item.appendChild(remove);
-      area.appendChild(item);
-    })(i);
-  }
-}
-
-function renderHomeReminders() {
-  var area = document.getElementById("homeReminders");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisReminders.length === 0) {
-    area.textContent = "No reminders yet.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisReminders.length; i++) {
-    var line = document.createElement("p");
-    line.textContent = jarvisReminders[i].date + " · " +
-      jarvisReminders[i].text;
-    area.appendChild(line);
-  }
-}
-
-// ACTIVITY LOG
-
-function logActivity(message) {
-  jarvisActivityLog.unshift({
-    message: message,
-    time: new Date().toLocaleString()
-  });
-
-  if (jarvisActivityLog.length > 50) {
-    jarvisActivityLog.length = 50;
-  }
-
-  saveData("jarvisActivityLog", jarvisActivityLog);
-  renderActivityLog();
-}
-
-function renderActivityLog() {
-  var area = document.getElementById("activityLog");
-  if (!area) return;
-
-  area.innerHTML = "";
-
-  if (jarvisActivityLog.length === 0) {
-    area.textContent = "No recent activity.";
-    return;
-  }
-
-  for (var i = 0; i < jarvisActivityLog.length; i++) {
-    var item = document.createElement("div");
-    item.className = "activity-item";
-
-    var message = document.createElement("div");
-    message.textContent = jarvisActivityLog[i].message;
-
-    var time = document.createElement("div");
-    time.className = "activity-time";
-    time.textContent = jarvisActivityLog[i].time;
-
-    item.appendChild(message);
-    item.appendChild(time);
-    area.appendChild(item);
-  }
-}
-
-function clearActivityLog() {
-  if (!confirm("Clear your activity history?")) return;
-
-  jarvisActivityLog = [];
-  saveData("jarvisActivityLog", jarvisActivityLog);
-  renderActivityLog();
-}
-
-// NUMBER CHALLENGE
-
-function newPuzzle() {
-  puzzleNumber = Math.floor(Math.random() * 20) + 1;
-  puzzleAttempts = 0;
-  puzzleFinished = false;
-
-  var message = document.getElementById("puzzleMessage");
-  var attempts = document.getElementById("puzzleAttempts");
-  var input = document.getElementById("puzzleGuess");
-
-  if (message) message.textContent = "Can you guess it?";
-  if (attempts) attempts.textContent = "Attempts: 0";
-  if (input) input.value = "";
-}
-
-function renderPuzzle() {
-  if (puzzleNumber === 0) newPuzzle();
-}
-
-function submitGuess() {
-  if (puzzleFinished) {
-    alert("Start a new game first!");
-    return;
-  }
-
-  var input = document.getElementById("puzzleGuess");
-  var guess = parseInt(input.value, 10);
-  var message = document.getElementById("puzzleMessage");
-
-  if (isNaN(guess) || guess < 1 || guess > 20) {
-    message.textContent = "Enter a number from 1 to 20.";
-    return;
-  }
-
-  puzzleAttempts++;
-
-  if (guess === puzzleNumber) {
-    message.textContent = "Correct! You got it in " +
-      puzzleAttempts + " attempt(s)!";
-    puzzleFinished = true;
-  } else if (guess < puzzleNumber) {
-    message.textContent = "Too low! Try a higher number.";
-  } else {
-    message.textContent = "Too high! Try a lower number.";
-  }
-
-  document.getElementById("puzzleAttempts").textContent =
-    "Attempts: " + puzzleAttempts;
-}
-
-// WEATHER
-
-function showCachedWeather() {
-  var area = document.getElementById("weatherDisplay");
-  if (!area) return;
-
-  if (jarvisWeather) {
-    area.textContent = jarvisWeather;
-  }
-}
-
-function getWeather() {
-  var city = prompt("Enter your town or city:");
-
-  if (!city || !city.trim()) return;
-
-  var area = document.getElementById("weatherDisplay");
-  area.textContent = "Loading weather for " + city + "...";
-
-  var geo = new XMLHttpRequest();
-  var geoUrl = "https://geocoding-api.open-meteo.com/v1/search?name=" +
-    encodeURIComponent(city.trim()) + "&count=1&language=en&format=json";
-
-  geo.open("GET", geoUrl, true);
-
-  geo.onreadystatechange = function() {
-    if (geo.readyState !== 4) return;
-
-    if (geo.status !== 200) {
-      area.textContent = "Could not retrieve the location.";
-      return;
-    }
-
-    try {
-      var result = JSON.parse(geo.responseText);
-
-      if (!result.results || result.results.length === 0) {
-        area.textContent = "Location not found. Try another city.";
-        return;
-      }
-
-      var place = result.results[0];
-      loadWeather(place.latitude, place.longitude, place.name);
-    } catch (error) {
-      area.textContent = "Weather data could not be read.";
-    }
-  };
-
-  geo.send();
-}
-
-function loadWeather(latitude, longitude, city) {
-  var request = new XMLHttpRequest();
-
-  var url = "https://api.open-meteo.com/v1/forecast?latitude=" +
-    latitude + "&longitude=" + longitude +
-    "&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m";
-
-  request.open("GET", url, true);
-
-  request.onreadystatechange = function() {
-    if (request.readyState !== 4) return;
-
-    var area = document.getElementById("weatherDisplay");
-
-    if (request.status !== 200) {
-      area.textContent = "Weather service unavailable.";
-      return;
-    }
-
-    try {
-      var data = JSON.parse(request.responseText);
-      var current = data.current;
-
-      var description = city + "\n" +
-        "Temperature: " + current.temperature_2m + "°C\n" +
-        "Feels like: " + current.apparent_temperature + "°C\n" +
-        "Humidity: " + current.relative_humidity_2m + "%\n" +
-        "Wind: " + current.wind_speed_10m + " km/h";
-
-      jarvisWeather = description;
-      saveData("jarvisWeather", jarvisWeather);
-
-      area.textContent = description;
-    } catch (error) {
-      area.textContent = "Could not process weather data.";
-    }
-  };
-
-  request.send();
-}
-
-// STARTUP
-
-function initialiseJarvis() {
-  updateClock();
-  setInterval(updateClock, 30000);
-
-  renderTasks();
-  renderLessons();
-  renderCard();
-  renderNotes();
-  renderReminders();
-  renderActivityLog();
-
-  updateDashboard();
-  showCachedWeather();
-  newPuzzle();
-}
-
-window.onload = initialiseJarvis;
+function updateClock(){var n=new Date(),c=document.getElementById("clock"),d=document.getElementById("dateDisplay"),g=document.getElementById("greeting");if(c)c.textContent=n.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"});if(d)d.textContent=n.toLocaleDateString([],{weekday:"long",day:"numeric",month:"long",year:"numeric"});if(g)g.textContent=n.getHours()<12?"Good morning. Ready for the day?":n.getHours()<18?"Good afternoon. What needs doing?":"Good evening. Let's get organised"}
+function openPage(name){var p=document.querySelectorAll(".page");p.forEach(function(x){x.classList.remove("active")});var target=document.getElementById(name);if(target)target.classList.add("active");var panel=document.getElementById("notificationPanel");if(panel)panel.classList.remove("open");if(name==="games")renderPuzzle();if(name==="revision")renderCard();if(name==="school")renderLessons();if(name==="notes")renderNotes();if(name==="reminders")renderReminders();if(name==="notifications"){renderNotificationHistory();loadNotificationSettings()}}
+function logActivity(msg){jarvisActivityLog.unshift({message:msg,time:new Date().toLocaleString()});if(jarvisActivityLog.length>50)jarvisActivityLog.length=50;saveData("jarvisActivityLog",jarvisActivityLog);renderActivityLog()}
+function renderActivityLog(){var a=document.getElementById("activityLog");if(!a)return;a.innerHTML="";if(!jarvisActivityLog.length){a.textContent="No recent activity.";return}jarvisActivityLog.forEach(function(x){var d=document.createElement("div"),m=document.createElement("div"),t=document.createElement("div");m.textContent=x.message;t.className="muted";t.textContent=x.time;d.appendChild(m);d.appendChild(t);a.appendChild(d)})}
+function clearActivityLog(){if(!confirm("Clear your activity history?"))return;jarvisActivityLog=[];saveData("jarvisActivityLog",jarvisActivityLog);renderActivityLog()}
+function renderTasks(){var a=document.getElementById("taskList");if(!a)return;a.innerHTML="";if(!jarvisTasks.length){a.textContent="No tasks added yet.";return}jarvisTasks.forEach(function(t,i){var d=document.createElement("div"),l=document.createElement("p"),b=document.createElement("button"),del=document.createElement("button");l.textContent=(t.done?"✓ ":"□ ")+t.text;l.style.textDecoration=t.done?"line-through":"none";b.textContent=t.done?"REOPEN":"COMPLETE";b.onclick=function(){t.done=!t.done;saveData("jarvisTasks",jarvisTasks);logActivity((t.done?"Task completed: ":"Task reopened: ")+t.text);updateDashboard()};del.textContent="DELETE";del.style.marginTop="5px";del.onclick=function(){var name=t.text;jarvisTasks.splice(i,1);saveData("jarvisTasks",jarvisTasks);logActivity("Task deleted: "+name);updateDashboard()};d.appendChild(l);d.appendChild(b);d.appendChild(del);a.appendChild(d)})}
+function addTask(){var x=document.getElementById("taskInput"),v=x.value.trim();if(!v)return;jarvisTasks.push({text:v,done:false});saveData("jarvisTasks",jarvisTasks);x.value="";logActivity("Task added: "+v);updateDashboard()}
+function addLesson(){var s=document.getElementById("lessonSubject").value.trim(),t=document.getElementById("lessonTime").value.trim(),d=document.getElementById("lessonDay").value.trim();if(!s||!t||!d){alert("Please enter the subject, time and day.");return}if(!/^([01]?\d|2[0-3]):[0-5]\d$/.test(t)){alert("Please use 24-hour time, for example 09:00.");return}jarvisLessons.push({subject:s,time:t,day:d});saveData("jarvisLessons",jarvisLessons);document.getElementById("lessonSubject").value="";document.getElementById("lessonTime").value="";document.getElementById("lessonDay").value="";logActivity("Lesson added: "+s);renderLessons();updateDashboard()}
+function renderLessons(){var a=document.getElementById("lessonList");if(!a)return;a.innerHTML="";if(!jarvisLessons.length){a.textContent="No lessons added yet.";return}jarvisLessons.forEach(function(l){var p=document.createElement("p");p.textContent=l.day+" · "+l.time+" · "+l.subject;a.appendChild(p)})}
+function renderHomeLessons(){var a=document.getElementById("homeLessons");if(!a)return;a.innerHTML="";if(!jarvisLessons.length){a.textContent="No lessons added yet.";return}jarvisLessons.forEach(function(l){var p=document.createElement("p");p.textContent=l.day+" · "+l.time+" · "+l.subject;a.appendChild(p)})}
+function updateDashboard(){renderTasks();renderHomeLessons();renderHomeNotes();renderHomeReminders();var done=jarvisTasks.filter(function(t){return t.done}).length;document.getElementById("taskCount").textContent=done+"/"+jarvisTasks.length;document.getElementById("reminderCount").textContent=jarvisReminders.length;document.getElementById("homeTasks").textContent=jarvisTasks.length+" task(s) · "+done+" completed";document.getElementById("homeRevision").textContent=jarvisCards.length+" flashcard(s) saved."}
+function addCard(){var s=document.getElementById("cardSubject").value.trim(),q=document.getElementById("cardQuestion").value.trim(),a=document.getElementById("cardAnswer").value.trim();if(!s||!q||!a){alert("Please complete all flashcard fields.");return}jarvisCards.push({subject:s,question:q,answer:a});saveData("jarvisCards",jarvisCards);document.getElementById("cardSubject").value="";document.getElementById("cardQuestion").value="";document.getElementById("cardAnswer").value="";currentCard=jarvisCards.length-1;logActivity("Flashcard added: "+s);renderCard();updateDashboard()}
+function renderCard(){var a=document.getElementById("cardDisplay");if(!a)return;a.innerHTML="";if(!jarvisCards.length){a.textContent="No flashcards yet.";return}if(currentCard>=jarvisCards.length)currentCard=0;var c=jarvisCards[currentCard],s=document.createElement("h3"),q=document.createElement("p");s.textContent=c.subject;q.textContent=c.question;a.appendChild(s);a.appendChild(q);if(answerVisible){var x=document.createElement("p");x.textContent="Answer: "+c.answer;a.appendChild(x)}var n=document.createElement("p");n.className="muted";n.textContent="Card "+(currentCard+1)+" of "+jarvisCards.length;a.appendChild(n)}
+function showAnswer(){answerVisible=true;renderCard()}function nextCard(){if(!jarvisCards.length)return;currentCard=(currentCard+1)%jarvisCards.length;answerVisible=false;renderCard()}function markReviewed(){if(!jarvisCards.length)return;jarvisReviewSession++;saveData("jarvisReviewSession",jarvisReviewSession);logActivity("Flashcard reviewed: "+jarvisCards[currentCard].subject);nextCard()}
+function saveNote(){var t=document.getElementById("noteTitle").value.trim(),c=document.getElementById("noteContent").value.trim();if(!t||!c){alert("Please enter a title and note.");return}jarvisNotes.push({title:t,content:c,date:new Date().toLocaleDateString()});saveData("jarvisNotes",jarvisNotes);document.getElementById("noteTitle").value="";document.getElementById("noteContent").value="";logActivity("Note saved: "+t);renderNotes();updateDashboard()}
+function renderNotes(){var a=document.getElementById("notesList");if(!a)return;a.innerHTML="";if(!jarvisNotes.length){a.textContent="No notes saved yet.";return}jarvisNotes.forEach(function(n,i){var d=document.createElement("div"),h=document.createElement("h3"),p=document.createElement("p"),date=document.createElement("p"),b=document.createElement("button");d.className="panel";h.textContent=n.title;p.textContent=n.content;date.className="muted";date.textContent=n.date||"";b.textContent="DELETE NOTE";b.onclick=function(){jarvisNotes.splice(i,1);saveData("jarvisNotes",jarvisNotes);logActivity("Note deleted: "+n.title);renderNotes();updateDashboard()};d.appendChild(h);d.appendChild(p);d.appendChild(date);d.appendChild(b);a.appendChild(d)})}
+function renderHomeNotes(){var a=document.getElementById("homeNotes");if(!a)return;a.textContent=jarvisNotes.length?jarvisNotes.length+" saved note(s). Latest: "+jarvisNotes[jarvisNotes.length-1].title:"No notes yet."}
+function addReminder(){var t=document.getElementById("reminderText").value.trim(),d=document.getElementById("reminderDate").value;if(!t||!d){alert("Please enter a reminder and date.");return}jarvisReminders.push({text:t,date:d});saveData("jarvisReminders",jarvisReminders);document.getElementById("reminderText").value="";document.getElementById("reminderDate").value="";logActivity("Reminder added: "+t);renderReminders();updateDashboard()}
+function renderReminders(){var a=document.getElementById("reminderList");if(!a)return;a.innerHTML="";if(!jarvisReminders.length){a.textContent="No reminders yet.";return}jarvisReminders.forEach(function(r,i){var d=document.createElement("div"),p=document.createElement("p"),b=document.createElement("button");p.textContent=r.date+" · "+r.text;b.textContent="DELETE REMINDER";b.onclick=function(){jarvisReminders.splice(i,1);saveData("jarvisReminders",jarvisReminders);logActivity("Reminder deleted: "+r.text);renderReminders();updateDashboard()};d.appendChild(p);d.appendChild(b);a.appendChild(d)})}
+function renderHomeReminders(){var a=document.getElementById("homeReminders");if(!a)return;a.innerHTML="";if(!jarvisReminders.length){a.textContent="No reminders yet.";return}jarvisReminders.forEach(function(r){var p=document.createElement("p");p.textContent=r.date+" · "+r.text;a.appendChild(p)})}
+function newPuzzle(){puzzleNumber=Math.floor(Math.random()*20)+1;puzzleAttempts=0;puzzleFinished=false;document.getElementById("puzzleMessage").textContent="Can you guess it?";document.getElementById("puzzleAttempts").textContent="Attempts: 0";document.getElementById("puzzleGuess").value=""}
+function renderPuzzle(){if(!puzzleNumber)newPuzzle()}
+function submitGuess(){if(puzzleFinished){alert("Start a new game first!");return}var g=parseInt(document.getElementById("puzzleGuess").value,10),m=document.getElementById("puzzleMessage");if(isNaN(g)||g<1||g>20){m.textContent="Enter a number from 1 to 20.";return}puzzleAttempts++;if(g===puzzleNumber){m.textContent="Correct! You got it in "+puzzleAttempts+" attempt(s)!";puzzleFinished=true}else m.textContent=g<puzzleNumber?"Too low! Try a higher number.":"Too high! Try a lower number.";document.getElementById("puzzleAttempts").textContent="Attempts: "+puzzleAttempts}
+function showCachedWeather(){if(jarvisWeather)document.getElementById("weatherDisplay").textContent=jarvisWeather}
+function getWeather(){var city=prompt("Enter your town or city:");if(!city||!city.trim())return;var area=document.getElementById("weatherDisplay");area.textContent="Loading weather for "+city+"...";var geo=new XMLHttpRequest();geo.open("GET","https://geocoding-api.open-meteo.com/v1/search?name="+encodeURIComponent(city.trim())+"&count=1&language=en&format=json",true);geo.onreadystatechange=function(){if(geo.readyState!==4)return;if(geo.status!==200){area.textContent="Could not retrieve the location.";return}try{var r=JSON.parse(geo.responseText);if(!r.results||!r.results.length){area.textContent="Location not found. Try another city.";return}loadWeather(r.results[0].latitude,r.results[0].longitude,r.results[0].name)}catch(e){area.textContent="Weather data could not be read."}};geo.send()}
+function loadWeather(lat,lon,city){var x=new XMLHttpRequest();x.open("GET","https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m",true);x.onreadystatechange=function(){if(x.readyState!==4)return;var a=document.getElementById("weatherDisplay");if(x.status!==200){a.textContent="Weather service unavailable.";return}try{var c=JSON.parse(x.responseText).current;jarvisWeather=city+"\nTemperature: "+c.temperature_2m+"°C\nFeels like: "+c.apparent_temperature+"°C\nHumidity: "+c.relative_humidity_2m+"%\nWind: "+c.wind_speed_10m+" km/h";saveData("jarvisWeather",jarvisWeather);a.textContent=jarvisWeather}catch(e){a.textContent="Could not process weather data."}};x.send()}
+function initialiseJarvis(){updateClock();setInterval(updateClock,30000);renderActivityLog();renderLessons();renderCard();renderNotes();renderReminders();updateDashboard();showCachedWeather();newPuzzle();updateNotificationBadge();renderNotificationPanel();renderNotificationHistory();loadNotificationSettings();checkAutomaticNotifications();setInterval(checkAutomaticNotifications,30000)}
+window.onload=initialiseJarvis;
 </script>
 </body>
 </html>
